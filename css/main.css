@@ -1,0 +1,3239 @@
+@import url(reset.css);
+/* main.css */
+@font-face {
+    font-family: 'KdamThmorPro';
+    src: url(../font/KdamThmorPro-Regular.ttf);
+}
+@font-face {
+    font-family: 'GothicA1';
+    src: url(../font/GothicA1-Regular.ttf);
+}
+body {font-family: 'KdamThmorPro', 'GothicA1' , "돋움", dotum, sans-serif; font-size: 12px; color: #000;}
+a {color: #666;text-decoration: none;}
+
+
+/* 움직이는 캐릭터 */
+.character {
+    z-index: 50; position: fixed; bottom: 50px; 
+    left: 50%; transform: translateX(-50%);
+    width: 155px; height: 176px; 
+    background: url(../images/eunmi_right.png);
+}
+.character.on {animation: walk 0.5s steps(3,start) infinite;}
+.character.left {background-image: url(../images/eunmi_left.png);}
+@keyframes walk {
+    0% {background-position: 0 0;}
+    100% {background-position: -465px 0;} 
+}
+
+
+/* 메뉴 버튼 */
+.btnMenu {
+    z-index: 50; 
+    position: fixed; right: 5%; top: 5%;
+    font-size: 40px; color: #FEFBE7;
+    animation: btnMenu 0.5s linear 0s infinite alternate;
+}
+@keyframes btnMenu {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        color: #52616B;
+    }
+    100% {
+        transform: scale(1.5); 
+        opacity: 0.8; 
+        color: #F0F5F9;
+    }
+}  
+/* 메뉴 버튼 닫기 */
+.subbtn {
+    z-index: 50; 
+    position: fixed; right: 5%; top: 5%;
+    font-size: 40px; color: #FEFBE7;
+    animation: btnMenu 0.5s linear 0s infinite alternate;
+}
+/* 햄버거 버튼 열리는 효과 */
+.slide-in {
+    animation: change 0.5s ease forwards;
+}
+@keyframes change {
+    from {
+        transform: translateY(-100%);
+        visibility: visible;
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+/* menu.html */
+.menu_list {background:#C9D6DF; position: flex; width: 100%; height: 100%;}
+.menu_list ul {width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;}
+.menu_list ul li {line-height: 3;}
+.menu_list ul li a {
+    color: #F0F5F9;text-shadow: 3px 3px 3px #52616B; font-size: 30px; letter-spacing: 2px;
+    transition: color 100ms linear 0s;
+}
+.menu_list ul li a:hover {color: #52616B;}
+/* 처음에 들어가는 효과 */
+.menu_list ul.text li {position: relative;}
+/* 띠 */
+.menu_list ul.text li::before {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: #F0F5F9; border-radius: 50%;
+    transform: scaleX(0); opacity: 0.5;
+}
+.menu_list.on ul.text > li:nth-child(1) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(1)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list.on ul.text > li:nth-child(2) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(2)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.5s forwards;}
+.menu_list.on ul.text > li:nth-child(3) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(3)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.8s forwards;}
+.menu_list.on ul.text > li:nth-child(4) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(4)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 1.1s forwards;}
+.menu_list.on ul.text > li:nth-child(5) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(5)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 1.5s forwards;}
+.menu_list.on ul.text > li:nth-child(6) {animation: menu0 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 0.2s forwards;}
+.menu_list ul.text li:nth-child(6)::before  {animation: menu1 0.6s cubic-bezier(0.87, 0.02, 0, 0.97) 1.8s forwards;}
+@keyframes menu0 {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    51% {opacity: 1;}
+    100% {opacity: 1;}
+}
+@keyframes menu1 {
+    0% {transform-origin: right;transform: scaleX(0);}
+    50% {transform-origin: right;transform: scaleX(1);}
+    51% {transform-origin: left;}
+    100% {transform-origin: left;transform: scaleX(0);}
+}
+
+
+/* 하단 */
+footer {z-index: 50;position: fixed; width: 100vw; height: 80px; bottom: 0;}
+footer::after {
+    content: '';display: block;width: 500px;height: 300px;
+    background-color:#52616B;border-radius: 50%;
+    position: absolute; left: 50%;transform: translate(-50%);
+}
+footer a {display: inline-block;margin-right: 30px;}
+footer a:first-child {margin-left: 5%;}
+footer a > i {font-size: 40px; color: #F0F5F9;transition: all 0.3s ease-in 0s;}
+footer a:hover > i {color: #F9EBC8;transform: translateY(-5px);}
+
+
+
+
+
+
+
+
+@media screen and (min-width:1024px) { /*pc 크기 - 최소 1024 ~ 최대 */
+    /* layout */
+    body {width: 100%; background-color: #1E2022;}
+    #container {position: fixed; width: 1000vw; height: 100vh;  font-size: 50px; color: #F0F5F9; background-color: #1E2022;transition: top 0.5s linear 0s,left 0.5s linear 0s;}
+    #container > div {float: left; width: 100vw; height: 100vh; background-color: #1E2022;}
+    /* 100vw - viewport 가로100% , 100vh - viewport세로100% */
+    #container > div > section {position: relative; width: 100%; height: 100%;overflow: hidden;}
+
+
+    /* 1 */
+    .content1 > section > h1 {
+        position: absolute;  left: 0;
+        width: 100%; text-align: center; font-size: 30px;
+        top: 200px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content1 > section > h2 {
+        position: absolute; left: 0;
+        width: 100%;text-align: center; font-size: 60px;
+        top: 300px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content1 > section > h3 {
+        position: absolute; left: 0;
+        width: 100%; text-align: center; font-size: 40px;
+        top: 400px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content1 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h2 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h3 {transform: translateY(0);opacity: 1;}
+    /* 스크롤 */
+    .content1 > section > span {
+        position: absolute; top: 100px; 
+        left: 50%; transform: translateX(-50%); 
+        width: 35px; height: 55px; 
+        border-radius: 40%; border: 3px solid #F9EBC8;
+        opacity: 0; 
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content1 > section.on > span {opacity: 1;}
+    .content1 > section > span::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        width: 10px;height: 10px;
+        border-radius: 50%; 
+        background-color: #F9EBC8;
+        animation: slid 1s ease-in alternate infinite;
+    }
+    @keyframes slid {
+        0% {top: 20%;opacity: 1;}
+        50% {top: 20%;opacity: 1;}
+        100% {top:70%; opacity: 0.3;}
+    }
+
+    .content1 > section > .fa-solid {position: absolute; left: 50%; bottom: 100px;}
+    .content1 > section > .fa-angle-left {
+        left: 40%; 
+        opacity: 0;
+    }
+    .content1 > section > .fa-angle-right {
+        left: 58%; opacity: 0; 
+        animation: right 0.3s ease-in-out alternate infinite;
+    }
+    @keyframes right {
+        0%{transform: translateX(0px)}
+        100%{transform: translateX(10px)}
+        
+    }
+    .content1 > section.on > .fa-angle-left {opacity: 0.2;display: none;}
+    .content1 > section.on > .fa-angle-right.on {opacity: 1;transform: translateX(0);}
+
+
+    /* 2 */
+    .content2 > section > h1 {
+        position: absolute; left: 5%; top: 200px;
+        font-size: 50px;
+        opacity: 0;
+        transform: translateY(-200%);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content2 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content2 > section > ul {
+        position: absolute; top: 20%; left: 50%;
+        font-size: 30px; text-align: center;
+        opacity: 0;
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content2 > section.on > ul {opacity: 1;transform: translateX(-50%);}
+    .content2 > section > ul > li {
+        z-index: 50;
+        position: relative;
+        display: inline-block;
+        overflow: hidden; 
+        background-color: #FEFBE7;
+        border-radius: 50%;
+        margin-right: 20px;margin-bottom: 10%; 
+        box-shadow: 6px 6px 3px #DAE5D0;
+    }
+    .content2 > section > ul > .r {margin-right: 0;}
+    .content2 > section > ul > li > a {display: block;padding: 30px;box-sizing: border-box;}
+    .content2 > section > ul > li > a > img {width:50px; height: 50px;}
+    /* 올라가는 물결 효과 */
+    .content2 > section.on > ul > li > a > span {text-indent: -9999px;overflow: hidden; position: absolute;background-color: #A0BCC2; padding: 30px;border-radius: 50%;width:80px; height: 50px;top: 120px;left: -10px;}
+    .content2 > section.on > ul > li:nth-of-type(1) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(2) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(3) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(4) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(5) > a > span {opacity: 0.5;animation: top3 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(6) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(7) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(8) > a > span {opacity: 0.5;animation: top4 2s alternate 1s infinite;}
+    @keyframes top {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 10px;transform: rotate(365deg);}
+    }
+    @keyframes top2 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 30px;transform: rotate(365deg);}
+    }
+    @keyframes top3 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 40px;transform: rotate(365deg);}
+    }
+    @keyframes top4 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 0px;transform: rotate(365deg);}
+    }
+    /* % */
+    .content2 > section.on > ul > li > a:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;left: 50%;transform: translate(-50%, -50%); 
+        text-align: center;color: #fff;text-shadow: -3px -3px 1px #ccc;font-size: 30px;
+        animation: up 2s alternate 1s infinite;
+    }
+    .content2 > section.on > ul > li:first-child > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(2) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(3) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(4) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(5) > a:after {content: '60%';}
+    .content2 > section.on > ul > li:nth-of-type(6) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(7) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:last-child > a:after {content: '100%';}
+    @keyframes up {
+        0%{top: 120%}
+        100%{top: 50%}
+    }
+
+
+    /* 3 */
+    .content3 > section > h1 {font-size: 50px;position: absolute;z-index: 10; left: 4.5%; top: 50px; opacity: 0;transform: translateY(-200%);transition: all 1s ease-in-out 0s;text-shadow: 3px 3px 3px #ccc;}
+    .content3 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    /* 왼쪽 img */
+    .content3 > section > .profile {width: 100%;height: 100%;display: flex;flex-direction: row;align-items: flex;}
+    .content3 > section > .profile > .pot {flex: 1;height: 100%;width: 100%; padding: 5%;overflow: hidden;}
+    .content3 > section > .profile > .pot > a > img {object-fit: contain;width: 100%;transform:scale(1);transition: transform .5s;}
+    .content3 > section > .profile > .pot > a {overflow: hidden;position: relative;opacity: 0;transition: opacity 0.3s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(1) {width: 32%;display: inline-block;transition: opacity 0.3s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(2) {width: 32%;display: inline-block;transition: opacity 0.6s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(3) {width: 32%;display: inline-block;transition: opacity 0.9s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(4) {width: 32%;display: inline-block;transition: opacity 1.2s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(5) {width: 32%;display: inline-block;transition: opacity 1.5s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(6) {width: 32%;display: inline-block;transition: opacity 1.8s ease-in-out 0s;}
+    .content3 > section.on > .profile > .pot > a {opacity: 1;background-color: #999;}
+    .content3 > section > .profile > .pot > a:hover > img {transform:scale(1.5); opacity: 0.5;}
+    /* hover text */
+    .content3 > section > .profile > .pot > a > span {position: absolute;;top: 50%;left: 50%;transform: translate(-50%, -50%);color: #fff;opacity: 0;font-size: 30px;}
+    .content3 > section > .profile > .pot > a:hover > span {opacity: 1;}
+    /* 오른쪽 설명 */
+    .content3 > section > .profile > .text {flex: 1;height: 100%;height: 100%;padding-top: 10%;padding-bottom: 5%; box-sizing: border-box;text-align: center;}
+    .content3 > section > .profile > .text > ul {width: 100%;height: 100%; display: flex;flex-direction: column;align-content: space-around;font-size: 30px ; letter-spacing: 5px;}
+    .content3 > section > .profile > .text > ul > li {height: 100%;transform: translateX(200px);transition: all 2.3s ease-in-out 0s;opacity: 0;}
+    .content3 > section > .profile > .text > ul > li > ul {font-size: 15px;margin-top: 2%;transform: translateX(200px);transition: all 3s ease-in-out 0s;opacity: 0;}
+    .content3 > section.on > .profile > .text > ul > li {opacity: 1;transform: translateX(0%)}
+    .content3 > section.on > .profile > .text > ul > li > ul {opacity: 1;transform: translateX(0%)}
+    
+
+    /* PROJECT */
+    /* 공통 버튼 */
+    .about > .btnall {width: 100%;height: 100%;text-align: center;letter-spacing: 2px;}
+    .about > .btnall > .the_btn {
+        display: inline-block;
+        position: relative; bottom:-50px;top: 4%;
+        height: 30px;
+        font-size: 18px; text-align: center;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 3px solid #F0F5F9; border-radius: 10px;
+        background-color: rgba(136, 136, 136, 0.209);
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(black, .2);
+        background: lighten(#F0F5F9, 10%);
+        transform: translate3d(0, 0, 0);
+        transition: color 0.3s ease 0s;
+    }
+    .about > .btn3 > span {color: #666;}
+    .about > .btnall > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn {width: 50%;}
+    .about > .btnall > .the_btn::after{
+        content: '';
+        display: block;
+        opacity: .4;
+        position: absolute; bottom: 3%; left: 50%;
+        background: #C9D6DF;
+        width: 300px; height: 300px;
+        margin-left: -150px; margin-bottom: -301px;
+        transform-origin: 50% 48%;
+        border-radius: 43%;
+        transition-duration: 0.75s;
+        transition-property: margin-bottom;
+        transition-timing-function: ease;
+    }
+    .about > .btnall > .the_btn:hover::after {
+        margin-bottom: -250px;
+        animation: rotate 2000ms infinite linear;
+    }
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        from { transform: rotate(360deg); }
+    }
+    /* 공통 목업 */
+    .containerall > .inner > .figure_box > .figure  {position: relative;width: 350px;height: 380px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure2 {position: relative;width: 350px;height: 380px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure3 {position: relative;width: 350px;height: 380px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure4 {position: relative;width: 250px;height: 380px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure5 {position: relative;width: 280px;height: 380px;padding-top: 80px;box-sizing: border-box;}
+    /* 공통 이미지 */
+    .containerall > .inner > .figure_box > img {width: 100%; display: block;}
+    .containerall > .inner > .figure_box > .figure > .figure_img ,
+    .containerall > .inner > .figure_box > .figure2 > .figure_img ,
+    .containerall > .inner > .figure_box > .figure3 > .figure_img {
+        position: absolute;
+        top: 95px;left: 13.5%;
+        width: 73%;height: 40%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure4 > .figure_img {
+        position: absolute;
+        top: 95px;left: 30.5%;
+        width: 60%;height: 51%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure5 > .figure_img {
+        position: absolute;
+        top: 108px;left: 33.9%;
+        width: 34%;height: 45%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure > .figure_img > img {width: 100%; display: block; animation: figure 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure2 > .figure_img > img {width: 100%; display: block; animation: figure2 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure3 > .figure_img > img {width: 100%; display: block; animation: figure3 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure4 > .figure_img > img {width: 100%; display: block; animation: figure4 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure5 > .figure_img > img {width: 100%; display: block; animation: figure5 15s linear 0s infinite;}
+    @keyframes figure {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-70%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure2 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-76%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure3 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-40%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure4 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-68%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure5 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-75%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+
+
+    /* 팝업창 */
+    .pop {position: absolute;background-color: rgba(0, 0, 0, 0.8); width: 100%;height: 100%;z-index: 100; display: none;}
+    .pop > .pop_inner {position: absolute; width: 500px;height: 350px; background-color: #F0F5F9;font-size: 20px;left: 50%;top: 50%;transform: translate(-50%,-50%);border-radius: 20px;text-align: right;color: #1E2022;}
+    .pop > .pop_inner > .txt {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 > p:nth-of-type(1) {margin-bottom: 10px;}
+    .pop > .pop_inner > div > p {font-size: 16px;}
+    .pop > .pop_inner > button {margin-top: 10px;margin-right: 10px; border: none;font-size: 30px;transition: all 0.3s ease-in 0s;background-color: #F0F5F9;}
+    .pop > .pop_inner > button:hover {color: #52616B;transform: scale(1.2);}
+
+    /* 4 */
+    .containerall {display: flex;flex-direction: column;align-content: space-between; width: 100%;height: 100%;}
+    .containerall > .samsungtit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .containerall > .samsungtit > p {color: #FFF;text-align: center;font-size: 20px;letter-spacing: 3px;}
+    .containerall > .samsungtit > p:nth-of-type(2) {font-size: 50px;}
+    .containerall > .samsungtit > p:nth-of-type(3) {font-size: 18px;}
+    .containerall > .inner {height: 40%;width: 100%;}
+    .containerall > .inner > .figure_box {width: 1000px;height: 100%; display: flex;margin: 0 auto;opacity: 0;transform: scale(1.2);transition: all 1s ease-in 0s;}
+    .containerall > .about {height: 40%;color: #666;}
+    /* on */
+    section > .containerall > .titbox > p {opacity: 0;transform: scale(2); transition: all 1s ease-in 0s;}
+    section.on > .containerall > .titbox > p {opacity: 1;transform: scale(1);}
+    section.on > .containerall > .inner > .figure_box {opacity: 1;transform: scale(1);}
+
+
+    /* 5 */
+    .tit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .tit > p {color: #F0F5F9;text-align: center;font-size: 30px;}
+    .tit > p:last-child {font-size: 60px;}
+    
+
+    /* 7 */
+    .content7 > section > .con {height: 100%; width: 100%; display: flex; flex-direction: row;}
+    .content7 > section > .con > .comongimg {width: 65%; height: 100%; position: relative;}
+    .content7 > section > .con > .comongimg > img {
+        object-fit: contain; object-position: center;
+        height: 200%; width: 200%;
+        position: absolute;
+        opacity: 0;transform: scale(4);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt {width: 35%;height: 100%; display: flex;flex-direction: column;}
+    .content7 > section > .con > .contxt > .comongtit {height: 50%;width: 100%;position: relative;}
+    .content7 > section > .con > .contxt > .comongtit > p {
+        color: #F0F5F9;text-align: center;font-size: 30px;
+        position: absolute;
+        opacity: 0; transform: translateX(100px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt > .comongtit > p:last-child {font-size: 60px;}
+    .content7 > section > .con > .contxt > .comongtit > p:first-child {bottom: 100px;}
+    .content7 > section > .con > .contxt > .about {height: 50%;width: 100%;}
+    /* on */
+    .content7 > section.on > .con > .comongimg > img {opacity: 1; transform: scale(1); top: 50%; transform: translateY(-50%);}
+    .content7 > section.on > .con > .contxt > .comongtit > p:last-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 0;}
+    .content7 > section.on > .con > .contxt > .comongtit > p:first-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 100px;}
+
+
+    /* 8 - react (movie , kakao) */
+    .content8 > section > .react {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content8 > section > .react > .tit {width: 100%;height: 40%;opacity: 0;transition: opacity 3s ease 0s;}
+    .content8 > section > .react > .tit > div {height: 100%;width: 100%;text-align: left;}
+    .content8 > section > .react > .tit > div > p {font-size: 20px;width: 55%;margin: 0 auto;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(1) {font-size: 30px;text-align: center;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(2) {font-size: 50px;margin-bottom: 30px;text-align: center; color: #F0F5F9;}
+    .content8 > section > .react > .tit > div > p span {color: #FFF;display: inline-block;width: 130px;font-size: 25px;}
+    .content8 > section.on > .react > .tit {opacity: 1;}
+
+    .content8 > section > .react > .movie_kakao {width: 100%;height: 60%;display: flex;}
+    .content8 > section > .react > .movie_kakao > div {width: 100%;height: 100%; display: flex;}
+    .content8 > section > .react > .movie_kakao > div > .movie {width: 50%;height: 90%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > .kakao {width: 50%;height: 90%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox {
+        width: 55%;
+        box-shadow: -10px 10px 1px rgba(136, 136, 136, 0.209);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div { 
+        display: flex; flex-direction: column;
+        border: 2px solid #ccc; 
+        border-radius: 20px 20px 0 0;
+        transition: transform 0.3s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div {transform: scale(1.1);}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header {
+        display: flex;
+        height: 40px; width: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > i {
+        font-size: 30px; text-align: center; color: #999; 
+        width: 10%;
+        padding-top: 5px;
+        transition: color 0.3s ease-in 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div > header > i {
+        color: #ccc;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div::after {color: #333;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > span {
+        background:rgba(136, 136, 136, 0.209);
+        color: #52616B; text-shadow: 2px 2px 1px #ccc; 
+        letter-spacing: 3px; font-size: 17px;
+        border-radius: 10px;
+        width: 60%;height: 30px;
+        margin-top: 5px;
+        padding-left: 5%; 
+        box-sizing: border-box;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > img {
+        width: 100%; 
+        object-fit: cover;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div::after {
+        content: 'click'; 
+        display: block;
+        width: 100%;height: 40px;
+        background:#ccc; 
+        text-align: center; font-size: 18px; letter-spacing: 3px;
+        padding-top: 8px;
+        box-sizing: border-box;
+        transition: color 0.3s ease-in-out 0s;
+    }
+    /* on */
+    .content8 > section > .react > .movie_kakao > div > .movie > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 1s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > .kakao > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content8 > section.on > .react .movie_kakao > div > div > .imgbox {opacity: 1;}
+
+
+    /* 9 - pure css */
+    .content9 > section > .pure_container {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content9 > section > .pure_container > .pure {width: 100%;height: 25%; position: relative;}
+    .content9 > section > .pure_container > .pure > .pure_tit {position: absolute;left: 50%;transform: translateX(-50%);text-align: center;top: 50px;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:first-child {transform: translateX(-200px);opacity: 0;transition: all 1s ease 0s;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:last-child {transform: translateX(200px);font-size: 18px;opacity: 1;transition: all 2s ease 0s;}
+    .content9 > section.on > .pure_container > .pure > .pure_tit > p {transform:translateX(0);opacity: 1;}
+
+    .content9 > section > .pure_container > .pure_box {width: 100%;height: 20%;margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul {opacity: 0;transition: opacity 3s ease-in 0s; font-size: 18px;display: flex;flex-direction: row;align-items: center; width: 30%;height: 80%; margin: 0 auto;border-radius: 20px;border: dotted 3px #333;}
+    .content9 > section > .pure_container > .pure_box > ul > li {width: 100%;text-align: center;color: #F0F5F9;letter-spacing: 2px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul {margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul > li {color: #F0F5F9; opacity: 0.4;}
+    .content9 > section.on > .pure_container > .pure_box > ul {opacity: 1;}
+
+    .content9 > section > .pure_container > .purezone_box {width: 100%;height: 55%; position: relative;}
+    .content9 > section > .pure_container > .purezone_box > .purezone {position: absolute;position: relative;width: 400px;height: 200px;margin: 0 auto;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i {position: absolute; z-index: 5; cursor: pointer;transition: all 0.3s ease 0s;text-align: left;top: 60px;font-size: 80px;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2) {right: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1) {left: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:hover {color: #C9D6DF;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2):active {transform: translate(3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1):active {transform: translate(-3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div {position: absolute; width: 100%;height: 100%;left: 0;top: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure {position: absolute;width: 200px;height:200px;left: 50%;transform: translateX(-50%);top: 0;text-align: center;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji {position: absolute;left: 12%; top: 10%;display: none;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji:nth-of-type(1) {display: block;}
+
+
+    /* 페이스북 이모지 */
+    .emoji {
+        position: relative;
+        display: inline-block; 
+        width: 120px;height: 120px;
+        border-radius: 50%;
+        margin: 15px 15px 15px;
+        background: #ffda6a;
+    }
+    /* emoji emoji_like*/
+    .emoji_like {
+        background: #548dff;
+        top: 0px;
+    }
+    .emoji_like .emoji_hand {
+        position: absolute;
+        left: 25px;bottom: 30px;
+        width: 20px;height: 40px;
+        background: #fff;
+        border-radius: 5px;
+        animation: hands-up 2s linear 0s infinite;
+    }
+    @keyframes hands-up {
+        25% {transform: rotate(15deg);}
+        50% {transform: rotate(-15deg) translateY(-10px);}
+        75%,100% {transform: rotate(0deg);}
+    }
+
+    .emoji_like .emoji_hand::before {
+        content: "";
+        position: absolute;
+        left: 25px;bottom: 5px; 
+        width: 40px;height: 10px;
+        background: #fff;
+        border-radius: 2px 10px 10px 2px;
+        box-shadow: 1px -9px 0 1px #fff,2px -19px 0 2px #fff,3px -29px 0 3px #fff;
+    }
+    .emoji_like .emoji_thumb {
+        position: absolute; 
+        right: -25px;top: -25px;
+        border-bottom: 20px solid #fff;
+        border-left: 20px solid transparent; 
+        transform: rotate(5deg);
+        transform-origin: 0 100%;
+        animation: thumb-up 2s linear 0s infinite;
+    }
+    @keyframes thumb-up {
+        25% {transform: rotate(20deg);}
+        50%, 100% {transform: rotate(5deg);}
+    }
+    .emoji_like .emoji_thumb::before {
+        content: '';
+        position: absolute;
+        left: -9.7px;top: -9px;
+        width: 10px;height: 12px;
+        background: #fff;
+        border-radius: 50% 50% 0 0;
+        box-decoration-break: -1px 4px 0 0 #fff;
+        transform: rotate(-14deg);
+        transform-origin: 100% 100% 
+    }
+    /* emoji_love */
+    .emoji_love {
+        background: #f00; 
+        top: 0;
+    }
+    .emoji_love .emoji_heart {
+        position: absolute; 
+        left: 50%;top: 50%;
+        margin-left: -40px;
+        margin-top: -40px;
+        width: 80px;height: 80px;
+        /* border: 1px solid #000; */
+        animation: heart-beat 1s linear infinite alternate;
+    }
+    @keyframes heart-beat {
+        25% {transform: scale(1.1);}
+        75% {transform: 0.6;}
+    }     
+    .emoji_heart::before, .emoji_heart::after {
+        content: '';
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 40px;height: 64px;
+        margin-left: -20px;
+        margin-top: -32px;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+    }
+    .emoji_heart::before {
+        transform-origin: 0 100%;
+        transform:translateX(20px) rotate(-45deg);
+    }
+    .emoji_heart::after {
+        transform-origin: 100% 100%;
+        transform: translateX(-20px) rotate(45deg);
+    }
+    /* emoji emoji_haha */
+    .emoji.emoji_haha {top: 0;}
+    .emoji_haha .emoji_face {
+        position: absolute;
+        width: 100%; height: inherit; /* border: 1px solid #f00; */
+        animation:haha-face 2s linear infinite normal ;
+    }
+    @keyframes haha-face{
+        10% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        30% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        50% {transform: translateY(25px);}
+
+        60% {transform: translateY(0px);}
+        70% {transform: translateY(-10px);}
+
+        80% {transform: translateY(0px);}
+        90% {transform: translateY(-10px);}
+
+    }
+    .emoji_haha .emoji_eyes {
+        position: absolute; 
+        left: 50%;top: 35px;
+        margin-left: -13px;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        /* background: #fff; */
+        box-shadow: -25px 5px 0 0 #000,25px -5px 0 0 #000;
+        transform: rotate(20deg);
+    }
+    .emoji_haha .emoji_eyes::after {
+        content: "";
+        position: absolute;
+        left: 0;top: 0;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        box-shadow: -25px -5px 0 0 #000,25px 5px 0 0 #000;
+        transform: rotate(-40deg);
+    }    
+    .emoji_haha .emoji_mouth {
+        overflow: hidden;
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 80px; height: 40px;
+        margin-left: -40px;
+        background: #000;
+        border-radius: 0 0 40px 40px;
+        animation: haha-mouth 2s linear infinite normal;
+    }
+                
+    @keyframes haha-mouth{
+        10% {transform:scale(0.6);top:45px;}
+        20% {transform:scale(0.8);top:45px;}
+
+        30% {transform:scale(0.6);top:45px;}
+        40% {transform:scale(0.8);top:45px;}
+
+        50% {transform:scale(0.6);top:45px;}
+
+        60% {transform:scale(1);top:50px;}
+        70% {transform:scale(1.2);top:50px;}
+
+        80% {transform:scale(1);top:50px;}
+        90% {transform:scale(1.1);top:50px;}
+    }         
+    .emoji_haha .emoji_tongue {
+        position: absolute;
+        left: 50%;bottom: -10px;
+        width: 70px;height: 30px;
+        margin-left: -35px;
+        background: #f55064;
+        border-radius: 50%;
+    }      
+    /* yay */
+    .emoji.emoji_yay {
+        top: 0;
+    }
+    .emoji_yay .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: yay 1s linear infinite alternate;
+    }
+    @keyframes yay{
+        25% {transform: rotate(-15deg);}
+        75% {transform: rotate(15deg);}
+    }    
+    .emoji_yay .emoji_eyebrows {
+        position: absolute; 
+        left: calc(50% - 3px);
+        top: 30px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -6px 0 0 0 #000,-36px 0 0 0 #000000,6px 0 0 0 #000,36px 0 0 0px;
+    }          
+    .emoji_yay .emoji_eyebrows::before,.emoji_yay .emoji_eyebrows::after {
+        content: ""; 
+        position: absolute; 
+        left: calc(50% - 18px);
+        bottom: 3px;
+        width: 36px;height: 18px; 
+        border-radius: 60px 60px 0 0;
+        border:6px solid #000;
+        border-bottom: 0;
+        box-sizing: border-box;
+    }
+    .emoji_yay .emoji_eyebrows::before {
+        margin-left: -21px;
+    } 
+    .emoji_yay .emoji_eyebrows::after {
+        margin-left: 21px;
+    }
+    .emoji_yay .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top:60px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #f00; */
+        box-shadow: -25px 0 0 0 #000,25px 0 0 0 #000
+        ,-35px 2px 30px 10px #D5234C,
+        35px -2px 30px 10px #D5234C;
+    }
+    .emoji_yay .emoji_mouth::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 40px); 
+        top: -64px;
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }    
+    /* wow */
+    .emoji.emoji_wow {
+        top: 0; left: 0px;
+    }
+    .emoji_wow .emoji_face {
+        position: absolute; 
+        width: 100%;height: inherit;
+        animation: wow-face 3s linear 0s infinite;
+    }
+    @keyframes wow-face {
+        15%,25% {transform: rotate(20deg) translateX(-25px);}
+        45%,65% {transform: rotate(-20deg) translateX(25px);}
+        75%,100% {transform: rotate(0deg) translateX(0px);}
+    }
+    .emoji_wow .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #fff; */
+        box-shadow: -18px 0 0 0 #000, -33px 0 0 0 #000, 18px 0 0 0 #000, 33px 0 0 0 #000;
+        animation:wow-brow 3s linear 0s infinite;
+    }
+    @keyframes wow-brow {
+        15%,65% {top: 25px;}
+        75%,100%,0% {top:15px}
+    }
+    .emoji_wow .emoji_eyebrows::before, .emoji_wow .emoji_eyebrows::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 12px);
+        top: -3px;
+        width: 24px;height: 20px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_wow .emoji_eyebrows::before {
+        margin-left: -25px;
+    } 
+    .emoji_wow .emoji_eyebrows::after {
+        margin-left: 25px;
+    }    
+    .emoji_wow .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 8px);
+        top: 35px;
+        width: 16px;height: 24px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_wow .emoji_tongue {
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 50%;
+        width: 30px;height: 45px;
+        border-radius: 50%;
+        background: #000;
+        animation:wow-mouth 3s linear 0s infinite;
+    }
+    @keyframes wow-mouth {
+        10%,30% {width: 20px;height: 20px;left: calc(50% - 10px);}
+        50%,70% {width: 30px;height: 40px;left: calc(50% - 15px);}
+        75%,100% {height: 50px;}
+    }
+    /* emoji emoji_sad */
+    .emoji.emoji_sad {
+        top: 0; left: 0;
+    }
+    .emoji_sad .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: sad-face 2s ease-in 0s infinite;
+    }
+    @keyframes sad-face {
+        25%, 35% {top: -15px;}
+        55%, 95% {top: 10px;}
+        100%, 0% {top: 0px;}
+    }
+    .emoji_sad .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 35px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -40px 9px 0 0 #000,-25px 0 0 0 #000, 25px 0 0 0 #000,40px 9px 0 0 #000;
+    }
+    .emoji_sad .emoji_eyebrows::before , .emoji_sad .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 2px;
+        width: 30px;height: 20px;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border-left-color: transparent; 
+        border-right-color: transparent; 
+        border-bottom-color: transparent;
+    }
+    .emoji_sad .emoji_eyebrows::before {
+        margin-left: -30px;
+        transform: rotate(-30deg);
+    }
+    .emoji_sad .emoji_eyebrows::after {
+        margin-left: 30px;
+        transform: rotate(30deg);
+    }
+    .emoji_sad .emoji_eyes { 
+        position: absolute;
+        left: calc(50% - 7px);
+        top: 50px;
+        width: 14px;height: 16px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_eyes::after {
+        content: '';
+        position: absolute;
+        width: 12px;height: 12px;
+        margin-left: 6px;
+        background: #548dff;
+        border-radius: 0 100% 40% 50% / 0 50% 40% 100%;
+        transform-origin: 0% 0%;
+        animation:tear-drop 2s ease-in infinite ;
+    }
+    @keyframes tear-drop{
+        0%,100% {
+            display: block;left: 35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        25% {
+            display: block;left: 35px;
+            transform: rotate(45deg) scale(2);
+        }
+        49.9% {
+            display: block;left: 35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+        50% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        75% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(2);
+        }
+        99.9% {
+            display: block;left: -35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    .emoji_sad .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 90px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -18px 0 0 0 #000,18px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_mouth::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 30px);
+        top: -10px;
+        width: 60px;height: 80px;
+        box-sizing: border-box;
+        border: 6px solid #000;
+        border-radius: 50%;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    /* angry */
+    .emoji.emoji_angry {
+        top: 0; left: -0;
+    }
+    .emoji_angry {
+        background: linear-gradient(to bottom, #D5234C -10%,#FFDA6A 100%);
+        background-size: 100%;
+    }
+    .emoji_angry .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: angry-face 2s ease-in 0s infinite;
+    }
+    @keyframes angry-face {
+        35%,60% {transform: translateX(0) translateY(10px) scale(0.9);}
+        40% {transform: translateX(-5px) translateY(10px) scale(0.9);}
+        45% {transform: translateX(5px) translateY(10px) scale(0.9);}
+        50% {transform: translateX(-5) translateY(10px) scale(0.9);}
+        55% {transform: translateX(5) translateY(10px) scale(0.9);}
+    }
+    .emoji_angry .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 55px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -44px 5px 0 0 #000000,-7px 16px 0 0 #000000, 7px 16px 0 0 #000000,44px 5px 0 0 #000000;
+    }
+    .emoji_angry .emoji_eyebrows::before, .emoji_angry .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute; 
+        left: calc(50% - 25px);
+        top: 0;
+        width: 50px;height: 20px;
+        border: 6px solid #000000;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_angry .emoji_eyebrows::before {
+        margin-left: -25px;
+        transform: rotate(15deg);
+    } 
+    .emoji_angry .emoji_eyebrows::after {
+        margin-left: 25px;
+        transform: rotate(-15deg);
+    }                            
+    .emoji_angry .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 6px);
+        top: 70px;
+        width: 12px;height: 12px;
+        border-radius: 50%;
+        box-shadow: 25px 0 0 0 #000000,-25px 0 0 0 #000000;
+    }
+    .emoji_angry .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 18px); 
+        bottom: 15px;
+        width: 36px;height: 18px;
+        background: #000;
+        border-radius: 50%;
+        animation: angry-mouth 2s ease-in 0s infinite;
+    }
+    @keyframes angry-mouth {
+        25%, 50% {height: 6px;bottom: 25px;}
+    }
+
+
+    /* 10 - contact */
+    .content10 > section .title {position: absolute; top: 50%;left: 50%;transform: translate(-50%, -50%); text-align: center;}
+    .content10 > section .title h1 {width: 100%;letter-spacing: 5px;margin-bottom: 2%;opacity: 0;transform: scale(5);transition: transform 0.5s ease-in-out 0s;}
+    .content10 > section.on .title h1 {opacity: 1; transform: scale(1);}
+    .content10 > section .title b {font-size: 25px;margin-right: 20px;opacity: 0;}
+    .content10 > section.on .title b {opacity: 1;transition: opacity 0.8s linear 0s;}
+    /* 배경 */
+    .content10 > section .bubble {position: absolute;width: 100%;height: 100%;}
+    /* 버블 */
+    .content10 > section .bubble div[class^="bubble_"] {position: absolute;width: 1px;height: 1px;background: #52616B; opacity: 0.5;border-radius: 50%;}
+    @keyframes bubble_movement {
+        0% {
+            transform: translate3d(0,0,0);
+            width: 1px;height: 1px;
+        }
+        100% {
+            transform: translate3d(0,-500px,0);
+            width: 75px;height: 75px;
+        }
+    }
+    .bubble_1   {bottom: 6px;left: 48%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_2   {bottom: 1px;left: 40%;animation: bubble_movement 4s infinite ease-in -0.26s;}
+    .bubble_3   {bottom: 3px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_4   {bottom: 6px;left: 24%;animation: bubble_movement 4s infinite ease-in -0.53s;}
+    .bubble_5   {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_6   {bottom: 6px;left: 12%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_7   {bottom: 1px;left: 56%;animation: bubble_movement 4s infinite ease-in -1.67s;}
+    .bubble_8   {bottom: 3px;left: 86%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_9   {bottom: 6px;left: 34%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_10  {bottom: 4px;left: 37%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_11  {bottom: 6px;left: 85%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_12  {bottom: 1px;left: 53%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_13  {bottom: 3px;left: 49%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_14  {bottom: 6px;left: 77%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_15  {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -3s;}
+    .bubble_16  {bottom: 6px;left: 66%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_17  {bottom: 1px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.78s;}
+    .bubble_18  {bottom: 3px;left: 73%;animation: bubble_movement 4s infinite ease-in -1.18s;}
+    .bubble_19  {bottom: 6px;left: 62%;animation: bubble_movement 4s infinite ease-in -0.52s;}
+    .bubble_20  {bottom: 4px;left: 23%;animation: bubble_movement 4s infinite ease-in -2.78s;}
+    .content10 > section .bubble div[class^="bubble_"]::after {
+        content: ''; 
+        position: absolute; left: 50%;top: 50%;
+        width: 85%;height: 85%; 
+        border-radius: 50%;
+        border-top: 1px solid hsla(0, 2%, 70%, 0.861);
+        transform: translate3d(-50%,-50%,0) rotateZ(-45deg);
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) { /* Tablet */
+    /* layout */
+    body {width: 100%; background-color: #1E2022;}
+    #container {position: fixed; width: 1000vw; height: 100vh;  font-size: 50px; color: #F0F5F9; background-color: #1E2022;}
+    #container > div {float: left; width: 100%; height: 100%; background-color: #1E2022;}
+    /* 100vw - viewport 가로100% , 100vh - viewport세로100% */
+    #container > div > section {position: relative; width: 100%;height: 100%; min-width: 768px; overflow: hidden;}
+
+    /* 1 */
+    .content1 > section > h1 {
+        position: absolute;  left: 0;
+        width: 100%; text-align: center; font-size: 30px;
+        top: 200px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content1 > section > h2 {
+        position: absolute; left: 0;
+        width: 100%;text-align: center; font-size: 60px;
+        top: 300px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content1 > section > h3 {
+        position: absolute; left: 0;
+        width: 100%; text-align: center; font-size: 30px;
+        top: 450px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content1 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h2 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h3 {transform: translateY(0);opacity: 1;}
+    /* 스크롤 */
+    .content1 > section > span {
+        position: absolute; top: 100px; 
+        left: 50%; transform: translateX(-50%); 
+        width: 35px; height: 55px; 
+        border-radius: 40%; border: 3px solid #F9EBC8;
+        opacity: 0; 
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content1 > section.on > span {opacity: 1;}
+    .content1 > section > span::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        width: 10px;height: 10px;
+        border-radius: 50%; 
+        background-color: #F9EBC8;
+        animation: slid 1s ease-in alternate infinite;
+    }
+    @keyframes slid {
+        0% {top: 20%;opacity: 1;}
+        50% {top: 20%;opacity: 1;}
+        100% {top:70%; opacity: 0.3;}
+    }
+
+    .content1 > section > .fa-solid {position: absolute; left: 50%; bottom: 100px;}
+    .content1 > section > .fa-angle-left {left: 40%; opacity: 0;}
+    .content1 > section > .fa-angle-right {left: 58%; opacity: 0; animation: right 0.3s ease-in-out alternate infinite;}
+    @keyframes right {
+        0%{transform: translateX(0px)}
+        100%{transform: translateX(10px)}
+        
+    }
+    .content1 > section.on > .fa-angle-left {opacity: 0.2;display: none;}
+    .content1 > section.on > .fa-angle-right.on {opacity: 1;transform: translateX(0);}
+
+
+    /* 2 */
+    .content2 > section > h1 {
+        position: absolute; left: 10%; top: 15%; 
+        font-size: 50px;
+        opacity: 0;
+        transform: translateY(-200%);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content2 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content2 > section > ul {
+        position: absolute; top: 30%; left: 50%; width: 100%;
+        font-size: 30px; text-align: center;
+        opacity: 0;
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content2 > section.on > ul {opacity: 1;transform: translateX(-50%);}
+    .content2 > section > ul > li {
+        z-index: 50;
+        position: relative;
+        display: inline-block;
+        overflow: hidden; 
+        background-color: #FEFBE7;
+        border-radius: 50%;
+        margin-right: 30px;margin-bottom: 10%; 
+        box-shadow: 6px 6px 3px #DAE5D0;
+    }
+    .content2 > section > ul > .r {margin-right: 0;}
+    .content2 > section > ul > li > a {display: block;padding: 20px;box-sizing: border-box;}
+    .content2 > section > ul > li > a > img {width:50px; height: 50px;}
+    /* 올라가는 물결 효과 */
+    .content2 > section.on > ul > li > a > span {text-indent: -9999px;overflow: hidden; position: absolute;background-color: #A0BCC2; padding: 30px;border-radius: 50%;width:80px; height: 50px;top: 120px;left: -10px;}
+    .content2 > section.on > ul > li:nth-of-type(1) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(2) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(3) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(4) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(5) > a > span {opacity: 0.5;animation: top3 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(6) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(7) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(8) > a > span {opacity: 0.5;animation: top4 2s alternate 1s infinite;}
+    @keyframes top {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 10px;transform: rotate(365deg);}
+    }
+    @keyframes top2 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 30px;transform: rotate(365deg);}
+    }
+    @keyframes top3 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 40px;transform: rotate(365deg);}
+    }
+    @keyframes top4 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 0px;transform: rotate(365deg);}
+    }
+    /* % */
+    .content2 > section.on > ul > li > a:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;left: 50%;transform: translate(-50%, -50%); 
+        text-align: center;color: #fff;text-shadow: -3px -3px 1px #ccc;font-size: 30px;
+        animation: up 2s alternate 1s infinite;
+    }
+    .content2 > section.on > ul > li:first-child > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(2) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(3) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(4) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(5) > a:after {content: '60%';}
+    .content2 > section.on > ul > li:nth-of-type(6) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(7) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:last-child > a:after {content: '100%';}
+    @keyframes up {
+        0%{top: 120%}
+        100%{top: 50%}
+    }
+
+
+    /* 3 */
+    .content3 > section > h1 {font-size: 50px;position: absolute;z-index: 10; left: 10%; top: 50px; opacity: 0;transform: translateY(-200%);transition: all 1s ease-in-out 0s;}
+    .content3 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    /* 왼쪽 img */
+    .content3 > section > .profile {width: 100%;height: 100%;display: flex;flex-direction: row;align-items: flex;}
+    .content3 > section > .profile > .pot {flex: 1;height: 100%;width: 100%; padding: 5%;overflow: hidden;}
+    .content3 > section > .profile > .pot > a > img {object-fit: contain;width: 100%;transform:scale(1);transition: transform .5s;}
+    .content3 > section > .profile > .pot > a {overflow: hidden;position: relative;opacity: 0;transition: opacity 0.3s ease-in-out 0s; top: 15%;}
+    .content3 > section > .profile > .pot > a:nth-of-type(1) {width: 30%;display: inline-block;transition: opacity 0.3s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(2) {width: 30%;display: inline-block;transition: opacity 0.6s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(3) {width: 30%;display: inline-block;transition: opacity 0.9s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(4) {width: 30%;display: inline-block;transition: opacity 1.2s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(5) {width: 30%;display: inline-block;transition: opacity 1.5s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(6) {width: 30%;display: inline-block;transition: opacity 1.8s ease-in-out 0s;}
+    .content3 > section.on > .profile > .pot > a {opacity: 1;background-color: #999;}
+    .content3 > section > .profile > .pot > a:hover > img {transform:scale(1.5); opacity: 0.5;}
+    /* hover text */
+    .content3 > section > .profile > .pot > a > span {position: absolute;;top: 50%;left: 50%;transform: translate(-50%, -50%);color: #fff;opacity: 0;font-size: 20px;}
+    .content3 > section > .profile > .pot > a:hover > span {opacity: 1;}
+    /* 오른쪽 설명 */
+    .content3 > section > .profile > .text {flex: 1;height: 100%;height: 100%;padding-top: 10%;padding-bottom: 5%; box-sizing: border-box;text-align: center;}
+    .content3 > section > .profile > .text > ul {width: 100%;height: 100%; display: flex;flex-direction: column;align-content: space-around;font-size: 20px ; letter-spacing: 4px;}
+    .content3 > section > .profile > .text > ul > li {height: 100%;transform: translateX(200px);transition: all 2.3s ease-in-out 0s;opacity: 0;}
+    .content3 > section > .profile > .text > ul > li > ul {font-size: 15px;margin-top: 2%;transform: translateX(200px);transition: all 3s ease-in-out 0s;opacity: 0;}
+    .content3 > section.on > .profile > .text > ul > li {opacity: 1;transform: translateX(0%)}
+    .content3 > section.on > .profile > .text > ul > li > ul {opacity: 1;transform: translateX(0%)}
+    
+
+    /* PROJECT */
+    /* 공통 버튼 */
+    .about > .btnall {width: 100%;height: 100%;text-align: center;}
+    .about > .btnall > .the_btn {
+        display: inline-block;
+        position: relative; bottom:-50px;top: 4%;
+        height: 30px;
+        font-size: 15px; text-align: center;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 3px solid #F0F5F9; border-radius: 10px;
+        background-color: rgba(136, 136, 136, 0.209);
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(black, .2);
+        background: lighten(#F0F5F9, 10%);
+        transform: translate3d(0, 0, 0);
+        transition: color 0.3s ease 0s;
+    }
+    .about > .btn3 > span {color: #666;}
+    .about > .btnall > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn {width: 70%;}
+    .about > .btnall > .the_btn::after{
+        content: '';
+        display: block;
+        opacity: .4;
+        position: absolute; bottom: 3%; left: 50%;
+        background: #C9D6DF;
+        width: 300px; height: 300px;
+        margin-left: -150px; margin-bottom: -301px;
+        transform-origin: 50% 48%;
+        border-radius: 43%;
+        transition-duration: 0.75s;
+        transition-property: margin-bottom;
+        transition-timing-function: ease;
+    }
+    .about > .btnall > .the_btn:hover::after {
+        margin-bottom: -250px;
+        animation: rotate 2000ms infinite linear;
+    }
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        from { transform: rotate(360deg); }
+    }
+    /* 팝업창 */
+    .pop {position: absolute;background-color: rgba(0, 0, 0, 0.8); width: 100%;height: 100%;z-index: 100; display: none;}
+    .pop > .pop_inner {position: absolute; width: 500px;height: 350px; background-color: #F0F5F9;font-size: 20px;left: 50%;top: 50%;transform: translate(-50%,-50%);border-radius: 20px;text-align: right;color: #1E2022;}
+    .pop > .pop_inner > .txt {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 > p:nth-of-type(1) {margin-bottom: 10px;}
+    .pop > .pop_inner > div > p {font-size: 16px;}
+    .pop > .pop_inner > button {margin-top: 10px;margin-right: 10px; border: none;font-size: 30px;transition: all 0.3s ease-in 0s;background-color: #F0F5F9;}
+    .pop > .pop_inner > button:hover {color: #52616B;transform: scale(1.2);}
+    
+    /* 공통 목업 */
+    .containerall > .inner > .figure_box > .figure  {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure2 {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure3 {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure4 {position: relative;width: 200px;height: 300px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure5 {position: relative;width: 200px;height: 280px;padding-top: 80px;box-sizing: border-box;}
+    /* 공통 이미지 */
+    .containerall > .inner > .figure_box > img {width: 100%; display: block;}
+    .containerall > .inner > .figure_box > .figure > .figure_img ,
+    .containerall > .inner > .figure_box > .figure2 > .figure_img ,
+    .containerall > .inner > .figure_box > .figure3 > .figure_img {
+        position: absolute;
+        top: 95px;left: 13.5%;
+        width: 73%;height: 40%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure4 > .figure_img {
+        position: absolute;
+        top: 95px;left: 30.5%;
+        width: 60%;height: 51%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure5 > .figure_img {
+        position: absolute;
+        top: 100px;left: 33.9%;
+        width: 34%;height: 45%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure > .figure_img > img {width: 100%; display: block; animation: figure 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure2 > .figure_img > img {width: 100%; display: block; animation: figure2 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure3 > .figure_img > img {width: 100%; display: block; animation: figure3 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure4 > .figure_img > img {width: 100%; display: block; animation: figure4 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure5 > .figure_img > img {width: 100%; display: block; animation: figure5 15s linear 0s infinite;}
+    @keyframes figure {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-70%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure2 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-76%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure3 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-40%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure4 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-68%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure5 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-75%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+
+
+    /* 4 */
+    .containerall {display: flex;flex-direction: column;align-content: space-between; width: 100%;height: 100%;}
+    .containerall > .samsungtit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .containerall > .samsungtit > p {color: #FFF;text-align: center;font-size: 20px;letter-spacing: 3px;}
+    .containerall > .samsungtit > p:nth-of-type(2) {font-size: 50px;}
+    .containerall > .samsungtit > p:nth-of-type(3) {font-size: 18px;}
+    .containerall > .inner {height: 40%;width: 100%;}
+    .containerall > .inner > .figure_box {width: 1000px;height: 100%; display: flex;opacity: 0;transform: scale(1.2);transition: all 1s ease-in 0s;}
+    .containerall > .about {height: 40%;color: #666;}
+    /* on */
+    section > .containerall > .titbox > p {opacity: 0;transform: scale(2); transition: all 1s ease-in 0s;}
+    section.on > .containerall > .titbox > p {opacity: 1;transform: scale(1);}
+    section.on > .containerall > .inner > .figure_box {opacity: 1;transform: scale(1);}
+
+
+    /* 5 */
+    .containerall > .inner > .figure_box {text-align: center;width: 100%;height: 100%;}
+    .containerall > .inner > .figure_box > div {margin: 0 auto;}
+    .tit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .tit > p {color: #F0F5F9;text-align: center;font-size: 20px;}
+    .tit > p:last-child {font-size: 50px;}
+    
+
+    /* 7 */
+    .content7 > section > .con {height: 100%; width: 100%; display: flex; flex-direction: row;}
+    .content7 > section > .con > .comongimg {width: 65%; height: 100%; position: relative;}
+    .content7 > section > .con > .comongimg > img {
+        object-fit: contain; object-position: center;
+        height: 200%; width: 200%;
+        position: absolute;
+        opacity: 0;transform: scale(4);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt {width: 35%;height: 100%; display: flex;flex-direction: column;}
+    .content7 > section > .con > .contxt > .comongtit {height: 50%;width: 100%;position: relative;}
+    .content7 > section > .con > .contxt > .comongtit > p {
+        color: #F0F5F9;text-align: center;font-size: 20px;
+        position: absolute;
+        opacity: 0; transform: translateX(100px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt > .comongtit > p:last-child {font-size: 50px;}
+    .content7 > section > .con > .contxt > .comongtit > p:first-child {bottom: 100px;}
+    .content7 > section > .con > .contxt > .about {height: 50%;width: 100%;}
+    /* on */
+    .content7 > section.on > .con > .comongimg > img {opacity: 1; transform: scale(1); top: 50%; transform: translateY(-50%);}
+    .content7 > section.on > .con > .contxt > .comongtit > p:last-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 0;}
+    .content7 > section.on > .con > .contxt > .comongtit > p:first-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 100px;}
+
+
+    /* 8 - react (movie , kakao) */
+    .content8 > section > .react {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content8 > section > .react > .tit {width: 100%;height: 40%;opacity: 0;transition: opacity 3s ease 0s;}
+    .content8 > section > .react > .tit > div {height: 100%;width: 100%;text-align: left;}
+    .content8 > section > .react > .tit > div > p {font-size: 15px;width: 80%;margin: 0 auto;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(1) {font-size: 20px;text-align: center;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(2) {font-size: 50px;margin-bottom: 30px;text-align: center; color: #F0F5F9;}
+    .content8 > section > .react > .tit > div > p span {color: #FFF;display: inline-block;width: 130px;font-size: 20px;}
+    .content8 > section.on > .react > .tit {opacity: 1;}
+
+    .content8 > section > .react > .movie_kakao {width: 100%;height: 60%;display: flex;}
+    .content8 > section > .react > .movie_kakao > div {width: 100%;height: 100%; display: flex;}
+    .content8 > section > .react > .movie_kakao > div > .movie {width: 50%;height: 75%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > .kakao {width: 50%;height: 75%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox {
+        width: 80%;
+        box-shadow: -10px 10px 1px rgba(136, 136, 136, 0.209);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div { 
+        display: flex; flex-direction: column;
+        border: 2px solid #ccc; 
+        border-radius: 20px 20px 0 0;
+        transition: transform 0.3s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div {transform: scale(1.1);}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header {
+        display: flex;
+        height: 40px; width: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > i {
+        font-size: 30px; text-align: center; color: #999; 
+        width: 10%;
+        padding-top: 5px;
+        transition: color 0.3s ease-in 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div > header > i {color: #ccc;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div::after {color: #333;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > span {
+        background:rgba(136, 136, 136, 0.209);
+        color: #52616B; text-shadow: 2px 2px 1px #ccc; 
+        letter-spacing: 3px; font-size: 17px;
+        border-radius: 10px;
+        width: 60%;height: 30px;
+        margin-top: 5px;
+        padding-left: 5%; 
+        box-sizing: border-box;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > img {
+        width: 100%; 
+        object-fit: cover;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div::after {
+        content: 'click'; 
+        display: block;
+        width: 100%;height: 40px;
+        background:#ccc; 
+        text-align: center; font-size: 18px; letter-spacing: 3px;
+        padding-top: 8px;
+        box-sizing: border-box;
+        transition: color 0.3s ease-in-out 0s;
+    }
+    /* on */
+    .content8 > section > .react > .movie_kakao > div > .movie > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 1s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > .kakao > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content8 > section.on > .react .movie_kakao > div > div > .imgbox {opacity: 1;}
+
+
+    /* 9 - pure css */
+    .content9 > section > .pure_container {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content9 > section > .pure_container > .pure {width: 100%;height: 25%; position: relative;}
+    .content9 > section > .pure_container > .pure > .pure_tit {position: absolute;left: 50%;transform: translateX(-50%);text-align: center;top: 50px;font-size: 50px;width: 100%;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:first-child {transform: translateX(-200px);opacity: 0;transition: all 1s ease 0s;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:last-child {transform: translateX(200px);font-size: 15px;opacity: 1;transition: all 2s ease 0s;}
+    .content9 > section.on > .pure_container > .pure > .pure_tit > p {transform:translateX(0);opacity: 1;}
+
+    .content9 > section > .pure_container > .pure_box {width: 100%;height: 20%;margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul {opacity: 0;transition: opacity 3s ease-in 0s; font-size: 15px;display: flex;flex-direction: row;align-items: center; width: 30%;height: 80%; margin: 0 auto;border-radius: 20px;border: dotted 3px #333;}
+    .content9 > section > .pure_container > .pure_box > ul > li {width: 100%;text-align: center;color: #F0F5F9;letter-spacing: 2px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul {margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul > li {color: #F0F5F9; opacity: 0.4;}
+    .content9 > section.on > .pure_container > .pure_box > ul {opacity: 1;}
+
+    .content9 > section > .pure_container > .purezone_box {width: 100%;height: 55%; position: relative;}
+    .content9 > section > .pure_container > .purezone_box > .purezone {position: absolute;position: relative;width: 400px;height: 200px;margin: 0 auto;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i {position: absolute; z-index: 5; cursor: pointer;transition: all 0.3s ease 0s;text-align: left;top: 60px;font-size: 50px;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2) {right: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1) {left: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:hover {color: #C9D6DF;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2):active {transform: translate(3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1):active {transform: translate(-3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div {position: absolute; width: 100%;height: 100%;left: 0;top: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure {position: absolute;width: 200px;height:200px;left: 50%;transform: translateX(-50%);top: 0;text-align: center;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji {position: absolute;left: 12%; top: 10%;display: none;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji:nth-of-type(1) {display: block;}
+
+
+    /* 페이스북 이모지 */
+    .emoji {
+        position: relative;
+        display: inline-block; 
+        width: 120px;height: 120px;
+        border-radius: 50%;
+        margin: 15px 15px 15px;
+        background: #ffda6a;
+    }
+    /* emoji emoji_like*/
+    .emoji_like {
+        background: #548dff;
+        top: 0px;
+    }
+    .emoji_like .emoji_hand {
+        position: absolute;
+        left: 25px;bottom: 30px;
+        width: 20px;height: 40px;
+        background: #fff;
+        border-radius: 5px;
+        animation: hands-up 2s linear 0s infinite;
+    }
+    @keyframes hands-up {
+        25% {transform: rotate(15deg);}
+        50% {transform: rotate(-15deg) translateY(-10px);}
+        75%,100% {transform: rotate(0deg);}
+    }
+
+    .emoji_like .emoji_hand::before {
+        content: "";
+        position: absolute;
+        left: 25px;bottom: 5px; 
+        width: 40px;height: 10px;
+        background: #fff;
+        border-radius: 2px 10px 10px 2px;
+        box-shadow: 1px -9px 0 1px #fff,2px -19px 0 2px #fff,3px -29px 0 3px #fff;
+    }
+    .emoji_like .emoji_thumb {
+        position: absolute; 
+        right: -25px;top: -25px;
+        border-bottom: 20px solid #fff;
+        border-left: 20px solid transparent; 
+        transform: rotate(5deg);
+        transform-origin: 0 100%;
+        animation: thumb-up 2s linear 0s infinite;
+    }
+    @keyframes thumb-up {
+        25% {transform: rotate(20deg);}
+        50%, 100% {transform: rotate(5deg);}
+    }
+    .emoji_like .emoji_thumb::before {
+        content: '';
+        position: absolute;
+        left: -9.7px;top: -9px;
+        width: 10px;height: 12px;
+        background: #fff;
+        border-radius: 50% 50% 0 0;
+        box-decoration-break: -1px 4px 0 0 #fff;
+        transform: rotate(-14deg);
+        transform-origin: 100% 100% 
+    }
+    /* emoji_love */
+    .emoji_love {
+        background: #f00; 
+        top: 0;
+    }
+    .emoji_love .emoji_heart {
+        position: absolute; 
+        left: 50%;top: 50%;
+        margin-left: -40px;
+        margin-top: -40px;
+        width: 80px;height: 80px;
+        /* border: 1px solid #000; */
+        animation: heart-beat 1s linear infinite alternate;
+    }
+    @keyframes heart-beat {
+        25% {transform: scale(1.1);}
+        75% {transform: 0.6;}
+    }     
+    .emoji_heart::before, .emoji_heart::after {
+        content: '';
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 40px;height: 64px;
+        margin-left: -20px;
+        margin-top: -32px;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+    }
+    .emoji_heart::before {
+        transform-origin: 0 100%;
+        transform:translateX(20px) rotate(-45deg);
+    }
+    .emoji_heart::after {
+        transform-origin: 100% 100%;
+        transform: translateX(-20px) rotate(45deg);
+    }
+    /* emoji emoji_haha */
+    .emoji.emoji_haha {top: 0;}
+    .emoji_haha .emoji_face {
+        position: absolute;
+        width: 100%; height: inherit; /* border: 1px solid #f00; */
+        animation:haha-face 2s linear infinite normal ;
+    }
+    @keyframes haha-face{
+        10% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        30% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        50% {transform: translateY(25px);}
+
+        60% {transform: translateY(0px);}
+        70% {transform: translateY(-10px);}
+
+        80% {transform: translateY(0px);}
+        90% {transform: translateY(-10px);}
+
+    }
+    .emoji_haha .emoji_eyes {
+        position: absolute; 
+        left: 50%;top: 35px;
+        margin-left: -13px;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        /* background: #fff; */
+        box-shadow: -25px 5px 0 0 #000,25px -5px 0 0 #000;
+        transform: rotate(20deg);
+    }
+    .emoji_haha .emoji_eyes::after {
+        content: "";
+        position: absolute;
+        left: 0;top: 0;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        box-shadow: -25px -5px 0 0 #000,25px 5px 0 0 #000;
+        transform: rotate(-40deg);
+    }    
+    .emoji_haha .emoji_mouth {
+        overflow: hidden;
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 80px; height: 40px;
+        margin-left: -40px;
+        background: #000;
+        border-radius: 0 0 40px 40px;
+        animation: haha-mouth 2s linear infinite normal;
+    }
+                
+    @keyframes haha-mouth{
+        10% {transform:scale(0.6);top:45px;}
+        20% {transform:scale(0.8);top:45px;}
+
+        30% {transform:scale(0.6);top:45px;}
+        40% {transform:scale(0.8);top:45px;}
+
+        50% {transform:scale(0.6);top:45px;}
+
+        60% {transform:scale(1);top:50px;}
+        70% {transform:scale(1.2);top:50px;}
+
+        80% {transform:scale(1);top:50px;}
+        90% {transform:scale(1.1);top:50px;}
+    }         
+    .emoji_haha .emoji_tongue {
+        position: absolute;
+        left: 50%;bottom: -10px;
+        width: 70px;height: 30px;
+        margin-left: -35px;
+        background: #f55064;
+        border-radius: 50%;
+    }      
+    /* yay */
+    .emoji.emoji_yay {
+        top: 0;
+    }
+    .emoji_yay .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: yay 1s linear infinite alternate;
+    }
+    @keyframes yay{
+        25% {transform: rotate(-15deg);}
+        75% {transform: rotate(15deg);}
+    }    
+    .emoji_yay .emoji_eyebrows {
+        position: absolute; 
+        left: calc(50% - 3px);
+        top: 30px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -6px 0 0 0 #000,-36px 0 0 0 #000000,6px 0 0 0 #000,36px 0 0 0px;
+    }          
+    .emoji_yay .emoji_eyebrows::before,.emoji_yay .emoji_eyebrows::after {
+        content: ""; 
+        position: absolute; 
+        left: calc(50% - 18px);
+        bottom: 3px;
+        width: 36px;height: 18px; 
+        border-radius: 60px 60px 0 0;
+        border:6px solid #000;
+        border-bottom: 0;
+        box-sizing: border-box;
+    }
+    .emoji_yay .emoji_eyebrows::before {
+        margin-left: -21px;
+    } 
+    .emoji_yay .emoji_eyebrows::after {
+        margin-left: 21px;
+    }
+    .emoji_yay .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top:60px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #f00; */
+        box-shadow: -25px 0 0 0 #000,25px 0 0 0 #000
+        ,-35px 2px 30px 10px #D5234C,
+        35px -2px 30px 10px #D5234C;
+    }
+    .emoji_yay .emoji_mouth::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 40px); 
+        top: -64px;
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }    
+    /* wow */
+    .emoji.emoji_wow {
+        top: 0; left: 0px;
+    }
+    .emoji_wow .emoji_face {
+        position: absolute; 
+        width: 100%;height: inherit;
+        animation: wow-face 3s linear 0s infinite;
+    }
+    @keyframes wow-face {
+        15%,25% {transform: rotate(20deg) translateX(-25px);}
+        45%,65% {transform: rotate(-20deg) translateX(25px);}
+        75%,100% {transform: rotate(0deg) translateX(0px);}
+    }
+    .emoji_wow .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #fff; */
+        box-shadow: -18px 0 0 0 #000, -33px 0 0 0 #000, 18px 0 0 0 #000, 33px 0 0 0 #000;
+        animation:wow-brow 3s linear 0s infinite;
+    }
+    @keyframes wow-brow {
+        15%,65% {top: 25px;}
+        75%,100%,0% {top:15px}
+    }
+    .emoji_wow .emoji_eyebrows::before, .emoji_wow .emoji_eyebrows::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 12px);
+        top: -3px;
+        width: 24px;height: 20px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_wow .emoji_eyebrows::before {
+        margin-left: -25px;
+    } 
+    .emoji_wow .emoji_eyebrows::after {
+        margin-left: 25px;
+    }    
+    .emoji_wow .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 8px);
+        top: 35px;
+        width: 16px;height: 24px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_wow .emoji_tongue {
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 50%;
+        width: 30px;height: 45px;
+        border-radius: 50%;
+        background: #000;
+        animation:wow-mouth 3s linear 0s infinite;
+    }
+    @keyframes wow-mouth {
+        10%,30% {width: 20px;height: 20px;left: calc(50% - 10px);}
+        50%,70% {width: 30px;height: 40px;left: calc(50% - 15px);}
+        75%,100% {height: 50px;}
+    }
+    /* emoji emoji_sad */
+    .emoji.emoji_sad {
+        top: 0; left: 0;
+    }
+    .emoji_sad .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: sad-face 2s ease-in 0s infinite;
+    }
+    @keyframes sad-face {
+        25%, 35% {top: -15px;}
+        55%, 95% {top: 10px;}
+        100%, 0% {top: 0px;}
+    }
+    .emoji_sad .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 35px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -40px 9px 0 0 #000,-25px 0 0 0 #000, 25px 0 0 0 #000,40px 9px 0 0 #000;
+    }
+    .emoji_sad .emoji_eyebrows::before , .emoji_sad .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 2px;
+        width: 30px;height: 20px;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border-left-color: transparent; 
+        border-right-color: transparent; 
+        border-bottom-color: transparent;
+    }
+    .emoji_sad .emoji_eyebrows::before {
+        margin-left: -30px;
+        transform: rotate(-30deg);
+    }
+    .emoji_sad .emoji_eyebrows::after {
+        margin-left: 30px;
+        transform: rotate(30deg);
+    }
+    .emoji_sad .emoji_eyes { 
+        position: absolute;
+        left: calc(50% - 7px);
+        top: 50px;
+        width: 14px;height: 16px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_eyes::after {
+        content: '';
+        position: absolute;
+        width: 12px;height: 12px;
+        margin-left: 6px;
+        background: #548dff;
+        border-radius: 0 100% 40% 50% / 0 50% 40% 100%;
+        transform-origin: 0% 0%;
+        animation:tear-drop 2s ease-in infinite ;
+    }
+    @keyframes tear-drop{
+        0%,100% {
+            display: block;left: 35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        25% {
+            display: block;left: 35px;
+            transform: rotate(45deg) scale(2);
+        }
+        49.9% {
+            display: block;left: 35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+        50% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        75% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(2);
+        }
+        99.9% {
+            display: block;left: -35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    .emoji_sad .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 90px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -18px 0 0 0 #000,18px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_mouth::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 30px);
+        top: -10px;
+        width: 60px;height: 80px;
+        box-sizing: border-box;
+        border: 6px solid #000;
+        border-radius: 50%;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    /* angry */
+    .emoji.emoji_angry {
+        top: 0; left: -0;
+    }
+    .emoji_angry {
+        background: linear-gradient(to bottom, #D5234C -10%,#FFDA6A 100%);
+        background-size: 100%;
+    }
+    .emoji_angry .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: angry-face 2s ease-in 0s infinite;
+    }
+    @keyframes angry-face {
+        35%,60% {transform: translateX(0) translateY(10px) scale(0.9);}
+        40% {transform: translateX(-5px) translateY(10px) scale(0.9);}
+        45% {transform: translateX(5px) translateY(10px) scale(0.9);}
+        50% {transform: translateX(-5) translateY(10px) scale(0.9);}
+        55% {transform: translateX(5) translateY(10px) scale(0.9);}
+    }
+    .emoji_angry .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 55px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -44px 5px 0 0 #000000,-7px 16px 0 0 #000000, 7px 16px 0 0 #000000,44px 5px 0 0 #000000;
+    }
+    .emoji_angry .emoji_eyebrows::before, .emoji_angry .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute; 
+        left: calc(50% - 25px);
+        top: 0;
+        width: 50px;height: 20px;
+        border: 6px solid #000000;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_angry .emoji_eyebrows::before {
+        margin-left: -25px;
+        transform: rotate(15deg);
+    } 
+    .emoji_angry .emoji_eyebrows::after {
+        margin-left: 25px;
+        transform: rotate(-15deg);
+    }                            
+    .emoji_angry .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 6px);
+        top: 70px;
+        width: 12px;height: 12px;
+        border-radius: 50%;
+        box-shadow: 25px 0 0 0 #000000,-25px 0 0 0 #000000;
+    }
+    .emoji_angry .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 18px); 
+        bottom: 15px;
+        width: 36px;height: 18px;
+        background: #000;
+        border-radius: 50%;
+        animation: angry-mouth 2s ease-in 0s infinite;
+    }
+    @keyframes angry-mouth {
+        25%, 50% {height: 6px;bottom: 25px;}
+    }
+
+
+    /* 10 - contact */
+    .content10 > section .title {position: absolute; top: 50%;left: 50%;transform: translate(-50%, -50%); text-align: center;width: 100%;}
+    .content10 > section .title h1 {width: 100%;letter-spacing: 5px;margin-bottom: 2%;opacity: 0;transform: scale(5);transition: transform 0.5s ease-in-out 0s;}
+    .content10 > section.on .title h1 {opacity: 1; transform: scale(1);}
+    .content10 > section .title b {font-size: 25px;margin-right: 20px;opacity: 0;}
+    .content10 > section.on .title b {opacity: 1;transition: opacity 0.8s linear 0s;}
+    /* 배경 */
+    .content10 > section .bubble {position: absolute;width: 100%;height: 100%;}
+    /* 버블 */
+    .content10 > section .bubble div[class^="bubble_"] {position: absolute;width: 1px;height: 1px;background: #52616B; opacity: 0.5;border-radius: 50%;}
+    @keyframes bubble_movement {
+        0% {
+            transform: translate3d(0,0,0);
+            width: 1px;height: 1px;
+        }
+        100% {
+            transform: translate3d(0,-500px,0);
+            width: 75px;height: 75px;
+        }
+    }
+    .bubble_1   {bottom: 6px;left: 48%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_2   {bottom: 1px;left: 40%;animation: bubble_movement 4s infinite ease-in -0.26s;}
+    .bubble_3   {bottom: 3px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_4   {bottom: 6px;left: 24%;animation: bubble_movement 4s infinite ease-in -0.53s;}
+    .bubble_5   {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_6   {bottom: 6px;left: 12%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_7   {bottom: 1px;left: 56%;animation: bubble_movement 4s infinite ease-in -1.67s;}
+    .bubble_8   {bottom: 3px;left: 86%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_9   {bottom: 6px;left: 34%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_10  {bottom: 4px;left: 37%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_11  {bottom: 6px;left: 85%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_12  {bottom: 1px;left: 53%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_13  {bottom: 3px;left: 49%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_14  {bottom: 6px;left: 77%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_15  {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -3s;}
+    .bubble_16  {bottom: 6px;left: 66%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_17  {bottom: 1px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.78s;}
+    .bubble_18  {bottom: 3px;left: 73%;animation: bubble_movement 4s infinite ease-in -1.18s;}
+    .bubble_19  {bottom: 6px;left: 62%;animation: bubble_movement 4s infinite ease-in -0.52s;}
+    .bubble_20  {bottom: 4px;left: 23%;animation: bubble_movement 4s infinite ease-in -2.78s;}
+    .content10 > section .bubble div[class^="bubble_"]::after {
+        content: ''; 
+        position: absolute; left: 50%;top: 50%;
+        width: 85%;height: 85%; 
+        border-radius: 50%;
+        border-top: 1px solid hsla(0, 2%, 70%, 0.861);
+        transform: translate3d(-50%,-50%,0) rotateZ(-45deg);
+    }
+}
+
+@media screen and (max-width:767px) { /* pc 크기 1024~최대 */
+    /* layout */
+    body {width: 100%; background-color: #1E2022;}
+    #container {position: fixed; width: 1000vw; height: 100vh;  font-size: 50px; color: #F0F5F9; background-color: #1E2022;}
+    #container > div {float: left; width: 100%; height: 100%; background-color: #1E2022;}
+    /* 100vw - viewport 가로100% , 100vh - viewport세로100% */
+    #container > div > section {position: relative; width: 100%;height: 100%; overflow: hidden;}
+
+    /* 1 */
+    .content1 > section > h1 {
+        position: absolute;  left: 0;
+        width: 100%; text-align: center; font-size: 25px;
+        top: 200px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content1 > section > h2 {
+        position: absolute; left: 0;
+        width: 100%;text-align: center; font-size: 50px;
+        top: 300px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content1 > section > h3 {
+        position: absolute; left: 0;
+        width: 100%; text-align: center; font-size: 25px;
+        top: 450px; opacity: 0;
+        transform: translateY(-200px);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content1 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h2 {transform: translateY(0);opacity: 1;}
+    .content1 > section.on > h3 {transform: translateY(0);opacity: 1;}
+    /* 스크롤 */
+    .content1 > section > span {
+        position: absolute; top: 100px; 
+        left: 50%; transform: translateX(-50%); 
+        width: 35px; height: 55px; 
+        border-radius: 40%; border: 3px solid #F9EBC8;
+        opacity: 0; 
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content1 > section.on > span {opacity: 1;}
+    .content1 > section > span::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        width: 10px;height: 10px;
+        border-radius: 50%; 
+        background-color: #F9EBC8;
+        animation: slid 1s ease-in alternate infinite;
+    }
+    @keyframes slid {
+        0% {top: 20%;opacity: 1;}
+        50% {top: 20%;opacity: 1;}
+        100% {top:70%; opacity: 0.3;}
+    }
+
+    .content1 > section > .fa-solid {position: absolute; left: 50%; bottom: 100px;}
+    .content1 > section > .fa-angle-left {left: 40%; opacity: 0;}
+    .content1 > section > .fa-angle-right {left: 58%; opacity: 0; animation: right 0.3s ease-in-out alternate infinite;}
+    @keyframes right {
+        0%{transform: translateX(0px)}
+        100%{transform: translateX(10px)}
+        
+    }
+    .content1 > section.on > .fa-angle-left {opacity: 0.2;display: none;}
+    .content1 > section.on > .fa-angle-right.on {opacity: 1;transform: translateX(0);}
+
+
+    /* 2 */
+    .content2 > section > h1 {
+        position: absolute; left: 15%; top: 15%;
+        font-size: 40px;
+        opacity: 0;
+        transform: translateY(-200%);
+        transition: all 1s ease-in-out 0s;
+    }
+    .content2 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    .content2 > section > ul {
+        position: absolute; top: 30%; left: 50%; width: 100%;
+        font-size: 20px; text-align: center;
+        opacity: 0;
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content2 > section.on > ul {opacity: 1;transform: translateX(-50%);}
+    .content2 > section > ul > li {
+        z-index: 50;
+        position: relative;
+        display: inline-block;
+        overflow: hidden; 
+        background-color: #FEFBE7;
+        border-radius: 50%;
+        margin-right: 30px;margin-bottom: 10%; 
+        box-shadow: 6px 6px 3px #DAE5D0;
+    }
+    .content2 > section > ul > .r {margin-right: 0;}
+    .content2 > section > ul > li > a {display: block;padding: 15px;box-sizing: border-box;}
+    .content2 > section > ul > li > a > img {width:50px; height: 50px;}
+    /* 올라가는 물결 효과 */
+    .content2 > section.on > ul > li > a > span {text-indent: -9999px;overflow: hidden; position: absolute;background-color: #A0BCC2; padding: 30px;border-radius: 50%;width:80px; height: 50px;top: 120px;left: -10px;}
+    .content2 > section.on > ul > li:nth-of-type(1) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(2) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(3) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(4) > a > span {opacity: 0.5;animation: top2 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(5) > a > span {opacity: 0.5;animation: top3 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(6) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(7) > a > span {opacity: 0.5;animation: top 2s alternate 1s infinite;}
+    .content2 > section.on > ul > li:nth-of-type(8) > a > span {opacity: 0.5;animation: top4 2s alternate 1s infinite;}
+    @keyframes top {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 10px;transform: rotate(365deg);}
+    }
+    @keyframes top2 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 30px;transform: rotate(365deg);}
+    }
+    @keyframes top3 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 40px;transform: rotate(365deg);}
+    }
+    @keyframes top4 {
+        0%{top: 120px;transform: rotate(0deg);}
+        100%{top: 0px;transform: rotate(365deg);}
+    }
+    /* % */
+    .content2 > section.on > ul > li > a:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;left: 50%;transform: translate(-50%, -50%); 
+        text-align: center;color: #fff;text-shadow: -3px -3px 1px #ccc;font-size: 25px;
+        animation: up 2s alternate 1s infinite;
+    }
+    .content2 > section.on > ul > li:first-child > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(2) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(3) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(4) > a:after {content: '70%';}
+    .content2 > section.on > ul > li:nth-of-type(5) > a:after {content: '60%';}
+    .content2 > section.on > ul > li:nth-of-type(6) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:nth-of-type(7) > a:after {content: '90%';}
+    .content2 > section.on > ul > li:last-child > a:after {content: '100%';}
+    @keyframes up {
+        0%{top: 120%}
+        100%{top: 50%}
+    }
+
+
+    /* 3 */
+    .content3 > section > h1 {font-size: 40px;position: absolute;z-index: 10; left: 15%; top: 50px; opacity: 0;transform: translateY(-200%);transition: all 1s ease-in-out 0s;}
+    .content3 > section.on > h1 {transform: translateY(0);opacity: 1;}
+    /* 왼쪽 img */
+    .content3 > section > .profile {width: 100%;height: 100%;display: flex;flex-direction: row;align-items: flex;}
+    .content3 > section > .profile > .pot {height: 100%;width: 75%; padding: 5%;overflow: hidden;margin: 0 auto;}
+    .content3 > section > .profile > .pot > a > img {object-fit: contain;width: 100%;transform:scale(1);transition: transform .5s;}
+    .content3 > section > .profile > .pot > a {overflow: hidden;position: relative;opacity: 0;transition: opacity 0.3s ease-in-out 0s; top: 15%;}
+    .content3 > section > .profile > .pot > a:nth-of-type(1) {width: 30%;display: inline-block;transition: opacity 0.3s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(2) {width: 30%;display: inline-block;transition: opacity 0.6s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(3) {width: 30%;display: inline-block;transition: opacity 0.9s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(4) {width: 30%;display: inline-block;transition: opacity 1.2s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(5) {width: 30%;display: inline-block;transition: opacity 1.5s ease-in-out 0s;}
+    .content3 > section > .profile > .pot > a:nth-of-type(6) {width: 30%;display: inline-block;transition: opacity 1.8s ease-in-out 0s;}
+    .content3 > section.on > .profile > .pot > a {opacity: 1;background-color: #999;}
+    .content3 > section > .profile > .pot > a:hover > img {transform:scale(1.5); opacity: 0.5;}
+    /* hover text */
+    .content3 > section > .profile > .pot > a > span {position: absolute;;top: 50%;left: 50%;transform: translate(-50%, -50%);color: #fff;opacity: 0;font-size: 20px;}
+    .content3 > section > .profile > .pot > a:hover > span {opacity: 1;}
+    /* 오른쪽 설명 */
+    .content3 > section > .profile > .text {display: none;}
+    
+
+    /* PROJECT */
+    /* 공통 버튼 */
+    .about > .btnall {width: 100%;height: 100%;text-align: center;}
+    .about > .btnall > .the_btn {
+        display: inline-block;
+        position: relative; bottom:-50px;top: 4%;
+        height: 30px;
+        font-size: 15px; text-align: center;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 3px solid #F0F5F9; border-radius: 10px;
+        background-color: rgba(136, 136, 136, 0.209);
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(black, .2);
+        background: lighten(#F0F5F9, 10%);
+        transform: translate3d(0, 0, 0);
+        transition: color 0.3s ease 0s;
+    }
+    .about > .btn3 > span {color: #666;}
+    .about > .btnall > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn:hover {color: #fff;}
+    .about > .btn3 > .the_btn {width: 70%;}
+    .about > .btnall > .the_btn::after{
+        content: '';
+        display: block;
+        opacity: .4;
+        position: absolute; bottom: 3%; left: 50%;
+        background: #C9D6DF;
+        width: 300px; height: 300px;
+        margin-left: -150px; margin-bottom: -301px;
+        transform-origin: 50% 48%;
+        border-radius: 43%;
+        transition-duration: 0.75s;
+        transition-property: margin-bottom;
+        transition-timing-function: ease;
+    }
+    .about > .btnall > .the_btn:hover::after {
+        margin-bottom: -250px;
+        animation: rotate 2000ms infinite linear;
+    }
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        from { transform: rotate(360deg); }
+    }
+    /* 팝업창 */
+    .pop {position: absolute;background-color: rgba(0, 0, 0, 0.8); width: 100%;height: 100%;z-index: 100; display: none;}
+    .pop > .pop_inner {position: absolute; width: 500px;height: 350px; background-color: #F0F5F9;font-size: 20px;left: 50%;top: 50%;transform: translate(-50%,-50%);border-radius: 20px;text-align: right;color: #1E2022;}
+    .pop > .pop_inner > .txt {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 {text-align: center;margin: 10px;}
+    .pop > .pop_inner > .txt2 > p:nth-of-type(1) {margin-bottom: 10px;}
+    .pop > .pop_inner > div > p {font-size: 16px;}
+    .pop > .pop_inner > button {margin-top: 10px;margin-right: 10px; border: none;font-size: 30px;transition: all 0.3s ease-in 0s;background-color: #F0F5F9;}
+    .pop > .pop_inner > button:hover {color: #52616B;transform: scale(1.2);}
+    
+    /* 공통 목업 */
+    .containerall > .inner > .figure_box > .figure  {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure2 {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;display: none;}
+    .containerall > .inner > .figure_box > .figure3 {position: relative;width: 230px;height: 250px;padding-top: 80px;box-sizing: border-box;display: none;}
+    .containerall > .inner > .figure_box > .figure4 {position: relative;width: 150px;height: 220px;padding-top: 80px;box-sizing: border-box;}
+    .containerall > .inner > .figure_box > .figure5 {position: relative;width: 150px;height: 190px;padding-top: 80px;box-sizing: border-box;}
+    /* 공통 이미지 */
+    .containerall > .inner > .figure_box > img {width: 100%; display: block;}
+    .containerall > .inner > .figure_box > .figure > .figure_img ,
+    .containerall > .inner > .figure_box > .figure2 > .figure_img ,
+    .containerall > .inner > .figure_box > .figure3 > .figure_img {
+        position: absolute;
+        top: 95px;left: 13.5%;
+        width: 73%;height: 40%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure4 > .figure_img {
+        position: absolute;
+        top: 95px;left: 30.5%;
+        width: 60%;height: 51%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure5 > .figure_img {
+        position: absolute;
+        top: 100px;left: 33.9%;
+        width: 34%;height: 45%;
+        background-color: #F0F5F9; 
+        border-radius: 3px;  
+        overflow: hidden;
+    }
+    .containerall > .inner > .figure_box > .figure > .figure_img > img {width: 100%; display: block; animation: figure 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure2 > .figure_img > img {width: 100%; display: block; animation: figure2 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure3 > .figure_img > img {width: 100%; display: block; animation: figure3 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure4 > .figure_img > img {width: 100%; display: block; animation: figure4 15s linear 0s infinite;}
+    .containerall > .inner > .figure_box > .figure5 > .figure_img > img {width: 100%; display: block; animation: figure5 15s linear 0s infinite;}
+    @keyframes figure {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-70%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure2 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-76%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure3 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-40%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure4 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-70%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+    @keyframes figure5 {
+        0% {
+            transform: translateY(0);
+        }
+        20% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-79%);
+        }
+        100% {
+            transform: translateY(-0%);
+        }
+    }
+
+
+    /* 4 */
+    .containerall {display: flex;flex-direction: column;align-content: space-between; width: 100%;height: 100%;}
+    .containerall > .samsungtit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .containerall > .samsungtit > p {color: #FFF;text-align: center;font-size: 18px;letter-spacing: 3px;}
+    .containerall > .samsungtit > p:nth-of-type(2) {font-size: 40px;}
+    .containerall > .samsungtit > p:nth-of-type(3) {font-size: 18px;}
+    .containerall > .inner {height: 40%;width: 100%;}
+    .containerall > .inner > .figure_box {width: 1000px;height: 100%; display: flex;opacity: 0;transform: scale(1.2);transition: all 1s ease-in 0s;}
+    .containerall > .about {height: 40%;color: #666;}
+    /* on */
+    section > .containerall > .titbox > p {opacity: 0;transform: scale(2); transition: all 1s ease-in 0s;}
+    section.on > .containerall > .titbox > p {opacity: 1;transform: scale(1);}
+    section.on > .containerall > .inner > .figure_box {opacity: 1;transform: scale(1);}
+
+
+    /* 5 */
+    .containerall > .inner > .figure_box {text-align: center;width: 100%;height: 100%;}
+    .containerall > .inner > .figure_box > div {margin: 0 auto;}
+    .tit {height: 20%;color: #666;padding-top: 2%;box-sizing: border-box;}
+    .tit > p {color: #F0F5F9;text-align: center;font-size: 20px;}
+    .tit > p:last-child {font-size: 40px;}
+    
+
+    /* 7 */
+    .content7 > section > .con {height: 100%; width: 100%; display: flex; flex-direction: row;}
+    .content7 > section > .con > .comongimg {width: 65%; height: 100%; position: relative;}
+    .content7 > section > .con > .comongimg > img {
+        object-fit: contain; object-position: center;
+        height: 200%; width: 200%;
+        position: absolute;
+        opacity: 0;transform: scale(4);
+        transition: all 1.5s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt {width: 35%;height: 100%; display: flex;flex-direction: column;}
+    .content7 > section > .con > .contxt > .comongtit {height: 50%;width: 100%;position: relative;}
+    .content7 > section > .con > .contxt > .comongtit > p {
+        color: #F0F5F9;text-align: center;font-size: 18px;
+        position: absolute;
+        opacity: 0; transform: translateX(100px);
+        transition: all 2s ease-in-out 0s;
+    }
+    .content7 > section > .con > .contxt > .comongtit > p:last-child {font-size: 40px;}
+    .content7 > section > .con > .contxt > .comongtit > p:first-child {bottom: 100px;}
+    .content7 > section > .con > .contxt > .about {height: 50%;width: 100%;}
+    /* on */
+    .content7 > section.on > .con > .comongimg > img {opacity: 1; transform: scale(1); top: 50%; transform: translateY(-50%);}
+    .content7 > section.on > .con > .contxt > .comongtit > p:last-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 0;}
+    .content7 > section.on > .con > .contxt > .comongtit > p:first-child {opacity: 1; left: 50%; transform: translateX(-50%); bottom: 100px;}
+
+
+    /* 8 - react (movie , kakao) */
+    .content8 > section > .react {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content8 > section > .react > .tit {width: 100%;height: 20%;opacity: 0;transition: opacity 3s ease 0s;}
+    .content8 > section > .react > .tit > div {height: 100%;width: 100%;text-align: left;}
+    .content8 > section > .react > .tit > div > p {font-size: 18px;width: 80%;margin: 0 auto;display: none;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(1) {font-size: 18px;text-align: center;display: block;}
+    .content8 > section > .react > .tit > div > p:nth-of-type(2) {font-size: 40px;margin-bottom: 30px;text-align: center; color: #F0F5F9;display: block;}
+    .content8 > section > .react > .tit > div > p span {color: #FFF;display: inline-block;width: 130px;font-size: 20px;}
+    .content8 > section.on > .react > .tit {opacity: 1;}
+
+    .content8 > section > .react > .movie_kakao {width: 100%;height: 80%;display: flex;}
+    .content8 > section > .react > .movie_kakao > div {width: 100%;height: 100%; display: flex;}
+    .content8 > section > .react > .movie_kakao > div > .movie {width: 100%;height: 75%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > .kakao {width: 100%;height: 75%;position: relative;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox {
+        width: 80%;
+        box-shadow: -10px 10px 1px rgba(136, 136, 136, 0.209);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div { 
+        display: flex; flex-direction: column;
+        border: 2px solid #ccc; 
+        border-radius: 20px 20px 0 0;
+        transition: transform 0.3s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div {transform: scale(1.1);}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header {
+        display: flex;
+        height: 40px; width: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 20px 20px 0 0;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > i {
+        font-size: 18px; text-align: center; color: #999; 
+        width: 10%;
+        padding-top: 10px;
+        transition: color 0.3s ease-in 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div > header > i {color: #ccc;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox:hover > div::after {color: #333;}
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > header > span {
+        background:rgba(136, 136, 136, 0.209);
+        color: #52616B; text-shadow: 2px 2px 1px #ccc; 
+        letter-spacing: 3px; font-size: 15px;
+        border-radius: 10px;
+        width: 60%;height: 30px;
+        margin-top: 5px;
+        padding-left: 5%; 
+        box-sizing: border-box;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div > img {
+        width: 100%; 
+        object-fit: cover;
+    }
+    .content8 > section > .react > .movie_kakao > div > div > .imgbox > div::after {
+        content: 'click'; 
+        display: block;
+        width: 100%;height: 40px;
+        background:#ccc; 
+        text-align: center; font-size: 18px; letter-spacing: 3px;
+        padding-top: 8px;
+        box-sizing: border-box;
+        transition: color 0.3s ease-in-out 0s;
+    }
+    /* on */
+    .content8 > section > .react > .movie_kakao > div > .movie > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 1s ease-in-out 0s;
+    }
+    .content8 > section > .react > .movie_kakao > div > .kakao > .imgbox {        
+        position: absolute;
+        top: 50%; left: 50%;transform: translate(-50%, -50%); opacity: 0;
+        transition: opacity 2s ease-in-out 0s;
+    }
+    .content8 > section.on > .react .movie_kakao > div > div > .imgbox {opacity: 1;}
+
+
+    /* 9 - pure css */
+    .content9 > section > .pure_container {width: 100%;height: 100%;display: flex;flex-direction: column;}
+    .content9 > section > .pure_container > .pure {width: 100%;height: 25%; position: relative;}
+    .content9 > section > .pure_container > .pure > .pure_tit {position: absolute;left: 50%;transform: translateX(-50%);text-align: center;top: 50px;font-size: 40px;width: 100%;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:first-child {transform: translateX(-200px);opacity: 0;transition: all 1s ease 0s;}
+    .content9 > section > .pure_container > .pure > .pure_tit > p:last-child {transform: translateX(200px);font-size: 15px;opacity: 1;transition: all 2s ease 0s;}
+    .content9 > section.on > .pure_container > .pure > .pure_tit > p {transform:translateX(0);opacity: 1;}
+
+    .content9 > section > .pure_container > .pure_box {width: 100%;height: 20%;margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul {opacity: 0;transition: opacity 3s ease-in 0s; font-size: 15px;display: flex;flex-direction: row;align-items: center; width: 50%;height: 80%; margin: 0 auto;border-radius: 20px;border: dotted 3px #333;}
+    .content9 > section > .pure_container > .pure_box > ul > li {width: 100%;text-align: center;color: #F0F5F9;letter-spacing: 2px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul {margin-top: 10px;}
+    .content9 > section > .pure_container > .pure_box > ul > li > ul > li {color: #F0F5F9; opacity: 0.4;}
+    .content9 > section.on > .pure_container > .pure_box > ul {opacity: 1;}
+
+    .content9 > section > .pure_container > .purezone_box {width: 100%;height: 55%; position: relative;}
+    .content9 > section > .pure_container > .purezone_box > .purezone {position: absolute;position: relative;width: 400px;height: 200px;margin: 0 auto;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i {position: absolute; z-index: 5; cursor: pointer;transition: all 0.3s ease 0s;text-align: left;top: 60px;font-size: 50px;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2) {right: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1) {left: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:hover {color: #C9D6DF;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(2):active {transform: translate(3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > i:nth-of-type(1):active {transform: translate(-3px, 3px);}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div {position: absolute; width: 100%;height: 100%;left: 0;top: 0;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure {position: absolute;width: 200px;height:200px;left: 50%;transform: translateX(-50%);top: 0;text-align: center;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji {position: absolute;left: 12%; top: 10%;display: none;}
+    .content9 > section > .pure_container > .purezone_box > .purezone > div > .kakao_pure > .emoji:nth-of-type(1) {display: block;}
+
+
+    /* 페이스북 이모지 */
+    .emoji {
+        position: relative;
+        display: inline-block; 
+        width: 120px;height: 120px;
+        border-radius: 50%;
+        margin: 15px 15px 15px;
+        background: #ffda6a;
+    }
+    /* emoji emoji_like*/
+    .emoji_like {
+        background: #548dff;
+        top: 0px;
+    }
+    .emoji_like .emoji_hand {
+        position: absolute;
+        left: 25px;bottom: 30px;
+        width: 20px;height: 40px;
+        background: #fff;
+        border-radius: 5px;
+        animation: hands-up 2s linear 0s infinite;
+    }
+    @keyframes hands-up {
+        25% {transform: rotate(15deg);}
+        50% {transform: rotate(-15deg) translateY(-10px);}
+        75%,100% {transform: rotate(0deg);}
+    }
+
+    .emoji_like .emoji_hand::before {
+        content: "";
+        position: absolute;
+        left: 25px;bottom: 5px; 
+        width: 40px;height: 10px;
+        background: #fff;
+        border-radius: 2px 10px 10px 2px;
+        box-shadow: 1px -9px 0 1px #fff,2px -19px 0 2px #fff,3px -29px 0 3px #fff;
+    }
+    .emoji_like .emoji_thumb {
+        position: absolute; 
+        right: -25px;top: -25px;
+        border-bottom: 20px solid #fff;
+        border-left: 20px solid transparent; 
+        transform: rotate(5deg);
+        transform-origin: 0 100%;
+        animation: thumb-up 2s linear 0s infinite;
+    }
+    @keyframes thumb-up {
+        25% {transform: rotate(20deg);}
+        50%, 100% {transform: rotate(5deg);}
+    }
+    .emoji_like .emoji_thumb::before {
+        content: '';
+        position: absolute;
+        left: -9.7px;top: -9px;
+        width: 10px;height: 12px;
+        background: #fff;
+        border-radius: 50% 50% 0 0;
+        box-decoration-break: -1px 4px 0 0 #fff;
+        transform: rotate(-14deg);
+        transform-origin: 100% 100% 
+    }
+    /* emoji_love */
+    .emoji_love {
+        background: #f00; 
+        top: 0;
+    }
+    .emoji_love .emoji_heart {
+        position: absolute; 
+        left: 50%;top: 50%;
+        margin-left: -40px;
+        margin-top: -40px;
+        width: 80px;height: 80px;
+        /* border: 1px solid #000; */
+        animation: heart-beat 1s linear infinite alternate;
+    }
+    @keyframes heart-beat {
+        25% {transform: scale(1.1);}
+        75% {transform: 0.6;}
+    }     
+    .emoji_heart::before, .emoji_heart::after {
+        content: '';
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 40px;height: 64px;
+        margin-left: -20px;
+        margin-top: -32px;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+    }
+    .emoji_heart::before {
+        transform-origin: 0 100%;
+        transform:translateX(20px) rotate(-45deg);
+    }
+    .emoji_heart::after {
+        transform-origin: 100% 100%;
+        transform: translateX(-20px) rotate(45deg);
+    }
+    /* emoji emoji_haha */
+    .emoji.emoji_haha {top: 0;}
+    .emoji_haha .emoji_face {
+        position: absolute;
+        width: 100%; height: inherit; /* border: 1px solid #f00; */
+        animation:haha-face 2s linear infinite normal ;
+    }
+    @keyframes haha-face{
+        10% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        30% {transform: translateY(25px);}
+        20% {transform: translateY(15px);}
+
+        50% {transform: translateY(25px);}
+
+        60% {transform: translateY(0px);}
+        70% {transform: translateY(-10px);}
+
+        80% {transform: translateY(0px);}
+        90% {transform: translateY(-10px);}
+
+    }
+    .emoji_haha .emoji_eyes {
+        position: absolute; 
+        left: 50%;top: 35px;
+        margin-left: -13px;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        /* background: #fff; */
+        box-shadow: -25px 5px 0 0 #000,25px -5px 0 0 #000;
+        transform: rotate(20deg);
+    }
+    .emoji_haha .emoji_eyes::after {
+        content: "";
+        position: absolute;
+        left: 0;top: 0;
+        width: 26px;height: 6px;
+        border-radius: 2px;
+        box-shadow: -25px -5px 0 0 #000,25px 5px 0 0 #000;
+        transform: rotate(-40deg);
+    }    
+    .emoji_haha .emoji_mouth {
+        overflow: hidden;
+        position: absolute;
+        left: 50%;top: 50%;
+        width: 80px; height: 40px;
+        margin-left: -40px;
+        background: #000;
+        border-radius: 0 0 40px 40px;
+        animation: haha-mouth 2s linear infinite normal;
+    }
+                
+    @keyframes haha-mouth{
+        10% {transform:scale(0.6);top:45px;}
+        20% {transform:scale(0.8);top:45px;}
+
+        30% {transform:scale(0.6);top:45px;}
+        40% {transform:scale(0.8);top:45px;}
+
+        50% {transform:scale(0.6);top:45px;}
+
+        60% {transform:scale(1);top:50px;}
+        70% {transform:scale(1.2);top:50px;}
+
+        80% {transform:scale(1);top:50px;}
+        90% {transform:scale(1.1);top:50px;}
+    }         
+    .emoji_haha .emoji_tongue {
+        position: absolute;
+        left: 50%;bottom: -10px;
+        width: 70px;height: 30px;
+        margin-left: -35px;
+        background: #f55064;
+        border-radius: 50%;
+    }      
+    /* yay */
+    .emoji.emoji_yay {
+        top: 0;
+    }
+    .emoji_yay .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: yay 1s linear infinite alternate;
+    }
+    @keyframes yay{
+        25% {transform: rotate(-15deg);}
+        75% {transform: rotate(15deg);}
+    }    
+    .emoji_yay .emoji_eyebrows {
+        position: absolute; 
+        left: calc(50% - 3px);
+        top: 30px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -6px 0 0 0 #000,-36px 0 0 0 #000000,6px 0 0 0 #000,36px 0 0 0px;
+    }          
+    .emoji_yay .emoji_eyebrows::before,.emoji_yay .emoji_eyebrows::after {
+        content: ""; 
+        position: absolute; 
+        left: calc(50% - 18px);
+        bottom: 3px;
+        width: 36px;height: 18px; 
+        border-radius: 60px 60px 0 0;
+        border:6px solid #000;
+        border-bottom: 0;
+        box-sizing: border-box;
+    }
+    .emoji_yay .emoji_eyebrows::before {
+        margin-left: -21px;
+    } 
+    .emoji_yay .emoji_eyebrows::after {
+        margin-left: 21px;
+    }
+    .emoji_yay .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top:60px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #f00; */
+        box-shadow: -25px 0 0 0 #000,25px 0 0 0 #000
+        ,-35px 2px 30px 10px #D5234C,
+        35px -2px 30px 10px #D5234C;
+    }
+    .emoji_yay .emoji_mouth::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 40px); 
+        top: -64px;
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }    
+    /* wow */
+    .emoji.emoji_wow {
+        top: 0; left: 0px;
+    }
+    .emoji_wow .emoji_face {
+        position: absolute; 
+        width: 100%;height: inherit;
+        animation: wow-face 3s linear 0s infinite;
+    }
+    @keyframes wow-face {
+        15%,25% {transform: rotate(20deg) translateX(-25px);}
+        45%,65% {transform: rotate(-20deg) translateX(25px);}
+        75%,100% {transform: rotate(0deg) translateX(0px);}
+    }
+    .emoji_wow .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        /* background: #fff; */
+        box-shadow: -18px 0 0 0 #000, -33px 0 0 0 #000, 18px 0 0 0 #000, 33px 0 0 0 #000;
+        animation:wow-brow 3s linear 0s infinite;
+    }
+    @keyframes wow-brow {
+        15%,65% {top: 25px;}
+        75%,100%,0% {top:15px}
+    }
+    .emoji_wow .emoji_eyebrows::before, .emoji_wow .emoji_eyebrows::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 12px);
+        top: -3px;
+        width: 24px;height: 20px;
+        border-radius: 50%;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_wow .emoji_eyebrows::before {
+        margin-left: -25px;
+    } 
+    .emoji_wow .emoji_eyebrows::after {
+        margin-left: 25px;
+    }    
+    .emoji_wow .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 8px);
+        top: 35px;
+        width: 16px;height: 24px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_wow .emoji_tongue {
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 50%;
+        width: 30px;height: 45px;
+        border-radius: 50%;
+        background: #000;
+        animation:wow-mouth 3s linear 0s infinite;
+    }
+    @keyframes wow-mouth {
+        10%,30% {width: 20px;height: 20px;left: calc(50% - 10px);}
+        50%,70% {width: 30px;height: 40px;left: calc(50% - 15px);}
+        75%,100% {height: 50px;}
+    }
+    /* emoji emoji_sad */
+    .emoji.emoji_sad {
+        top: 0; left: 0;
+    }
+    .emoji_sad .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: sad-face 2s ease-in 0s infinite;
+    }
+    @keyframes sad-face {
+        25%, 35% {top: -15px;}
+        55%, 95% {top: 10px;}
+        100%, 0% {top: 0px;}
+    }
+    .emoji_sad .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 35px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -40px 9px 0 0 #000,-25px 0 0 0 #000, 25px 0 0 0 #000,40px 9px 0 0 #000;
+    }
+    .emoji_sad .emoji_eyebrows::before , .emoji_sad .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute;
+        left: calc(50% - 15px);
+        top: 2px;
+        width: 30px;height: 20px;
+        border: 6px solid #000;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border-left-color: transparent; 
+        border-right-color: transparent; 
+        border-bottom-color: transparent;
+    }
+    .emoji_sad .emoji_eyebrows::before {
+        margin-left: -30px;
+        transform: rotate(-30deg);
+    }
+    .emoji_sad .emoji_eyebrows::after {
+        margin-left: 30px;
+        transform: rotate(30deg);
+    }
+    .emoji_sad .emoji_eyes { 
+        position: absolute;
+        left: calc(50% - 7px);
+        top: 50px;
+        width: 14px;height: 16px;
+        border-radius: 50%; 
+        /* background: #f00; */
+        box-shadow: 25px 0 0 0 #000,-25px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_eyes::after {
+        content: '';
+        position: absolute;
+        width: 12px;height: 12px;
+        margin-left: 6px;
+        background: #548dff;
+        border-radius: 0 100% 40% 50% / 0 50% 40% 100%;
+        transform-origin: 0% 0%;
+        animation:tear-drop 2s ease-in infinite ;
+    }
+    @keyframes tear-drop{
+        0%,100% {
+            display: block;left: 35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        25% {
+            display: block;left: 35px;
+            transform: rotate(45deg) scale(2);
+        }
+        49.9% {
+            display: block;left: 35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+        50% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(0);
+        }
+        75% {
+            display: block;left: -35px;top: 15px;
+            transform: rotate(45deg) scale(2);
+        }
+        99.9% {
+            display: block;left: -35px;top: 65px;
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    .emoji_sad .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 90px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -18px 0 0 0 #000,18px 0 0 0 #000;
+    }
+    .emoji_sad .emoji_mouth::after {
+        content: '';
+        position: absolute;
+        left: calc(50% - 30px);
+        top: -10px;
+        width: 60px;height: 80px;
+        box-sizing: border-box;
+        border: 6px solid #000;
+        border-radius: 50%;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    }
+    /* angry */
+    .emoji.emoji_angry {
+        top: 0; left: -0;
+    }
+    .emoji_angry {
+        background: linear-gradient(to bottom, #D5234C -10%,#FFDA6A 100%);
+        background-size: 100%;
+    }
+    .emoji_angry .emoji_face {
+        position: absolute;
+        width: 100%;height: inherit;
+        animation: angry-face 2s ease-in 0s infinite;
+    }
+    @keyframes angry-face {
+        35%,60% {transform: translateX(0) translateY(10px) scale(0.9);}
+        40% {transform: translateX(-5px) translateY(10px) scale(0.9);}
+        45% {transform: translateX(5px) translateY(10px) scale(0.9);}
+        50% {transform: translateX(-5) translateY(10px) scale(0.9);}
+        55% {transform: translateX(5) translateY(10px) scale(0.9);}
+    }
+    .emoji_angry .emoji_eyebrows {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: 55px;
+        width: 6px;height: 6px;
+        border-radius: 50%;
+        box-shadow: -44px 5px 0 0 #000000,-7px 16px 0 0 #000000, 7px 16px 0 0 #000000,44px 5px 0 0 #000000;
+    }
+    .emoji_angry .emoji_eyebrows::before, .emoji_angry .emoji_eyebrows::after {
+        content: ''; 
+        position: absolute; 
+        left: calc(50% - 25px);
+        top: 0;
+        width: 50px;height: 20px;
+        border: 6px solid #000000;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+    }
+    .emoji_angry .emoji_eyebrows::before {
+        margin-left: -25px;
+        transform: rotate(15deg);
+    } 
+    .emoji_angry .emoji_eyebrows::after {
+        margin-left: 25px;
+        transform: rotate(-15deg);
+    }                            
+    .emoji_angry .emoji_eyes {
+        position: absolute;
+        left: calc(50% - 6px);
+        top: 70px;
+        width: 12px;height: 12px;
+        border-radius: 50%;
+        box-shadow: 25px 0 0 0 #000000,-25px 0 0 0 #000000;
+    }
+    .emoji_angry .emoji_mouth {
+        position: absolute;
+        left: calc(50% - 18px); 
+        bottom: 15px;
+        width: 36px;height: 18px;
+        background: #000;
+        border-radius: 50%;
+        animation: angry-mouth 2s ease-in 0s infinite;
+    }
+    @keyframes angry-mouth {
+        25%, 50% {height: 6px;bottom: 25px;}
+    }
+
+
+    /* 10 - contact */
+    .content10 > section .title {position: absolute; top: 50%;left: 50%;transform: translate(-50%, -50%); text-align: center;width: 100%;}
+    .content10 > section .title h1 {width: 100%;letter-spacing: 5px;margin-bottom: 2%;opacity: 0;transform: scale(5);transition: transform 0.5s ease-in-out 0s;}
+    .content10 > section.on .title h1 {opacity: 1; transform: scale(1);}
+    .content10 > section .title b {font-size: 25px;margin-right: 20px;opacity: 0;}
+    .content10 > section.on .title b {opacity: 1;transition: opacity 0.8s linear 0s;}
+    /* 배경 */
+    .content10 > section .bubble {position: absolute;width: 100%;height: 100%;}
+    /* 버블 */
+    .content10 > section .bubble div[class^="bubble_"] {position: absolute;width: 1px;height: 1px;background: #52616B; opacity: 0.5;border-radius: 50%;}
+    @keyframes bubble_movement {
+        0% {
+            transform: translate3d(0,0,0);
+            width: 1px;height: 1px;
+        }
+        100% {
+            transform: translate3d(0,-500px,0);
+            width: 75px;height: 75px;
+        }
+    }
+    .bubble_1   {bottom: 6px;left: 48%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_2   {bottom: 1px;left: 40%;animation: bubble_movement 4s infinite ease-in -0.26s;}
+    .bubble_3   {bottom: 3px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_4   {bottom: 6px;left: 24%;animation: bubble_movement 4s infinite ease-in -0.53s;}
+    .bubble_5   {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_6   {bottom: 6px;left: 12%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_7   {bottom: 1px;left: 56%;animation: bubble_movement 4s infinite ease-in -1.67s;}
+    .bubble_8   {bottom: 3px;left: 86%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_9   {bottom: 6px;left: 34%;animation: bubble_movement 4s infinite ease-in -1.23s;}
+    .bubble_10  {bottom: 4px;left: 37%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_11  {bottom: 6px;left: 85%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_12  {bottom: 1px;left: 53%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_13  {bottom: 3px;left: 49%;animation: bubble_movement 4s infinite ease-in -0.32s;}
+    .bubble_14  {bottom: 6px;left: 77%;animation: bubble_movement 4s infinite ease-in -2.23s;}
+    .bubble_15  {bottom: 4px;left: 16%;animation: bubble_movement 4s infinite ease-in -3s;}
+    .bubble_16  {bottom: 6px;left: 66%;animation: bubble_movement 4s infinite ease-in -0.66s;}
+    .bubble_17  {bottom: 1px;left: 32%;animation: bubble_movement 4s infinite ease-in -1.78s;}
+    .bubble_18  {bottom: 3px;left: 73%;animation: bubble_movement 4s infinite ease-in -1.18s;}
+    .bubble_19  {bottom: 6px;left: 62%;animation: bubble_movement 4s infinite ease-in -0.52s;}
+    .bubble_20  {bottom: 4px;left: 23%;animation: bubble_movement 4s infinite ease-in -2.78s;}
+    .content10 > section .bubble div[class^="bubble_"]::after {
+        content: ''; 
+        position: absolute; left: 50%;top: 50%;
+        width: 85%;height: 85%; 
+        border-radius: 50%;
+        border-top: 1px solid hsla(0, 2%, 70%, 0.861);
+        transform: translate3d(-50%,-50%,0) rotateZ(-45deg);
+    }
+}
